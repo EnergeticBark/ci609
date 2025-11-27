@@ -19,6 +19,7 @@ paths:
                   $ref: "#/components/schemas/DeathType"
                 time:
                   type: integer
+                  description: Time in milliseconds since the epoch (midnight of January 1, 1970, UTC)
                 latitude:
                   type: number
                   format: double
@@ -28,12 +29,14 @@ paths:
                 accuracy:
                   type: number
                   format: double
+                  description: Accuracy of the provided latitude and longitude values in meters
                 image:
                   type: string
                   format: binary
                 notes:
                   nullable: true
                   type: string
+                  maxLength: 10000
       responses:
         "201":
           description: Created
