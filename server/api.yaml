@@ -13,30 +13,7 @@ paths:
         content:
           multipart/form-data:
             schema:
-              type: object
-              properties:
-                deathType:
-                  $ref: "#/components/schemas/DeathType"
-                time:
-                  type: integer
-                  description: Time in milliseconds since the epoch (midnight of January 1, 1970, UTC)
-                latitude:
-                  type: number
-                  format: double
-                longitude:
-                  type: number
-                  format: double
-                accuracy:
-                  type: number
-                  format: double
-                  description: Accuracy of the provided latitude and longitude values in meters
-                image:
-                  type: string
-                  format: binary
-                notes:
-                  nullable: true
-                  type: string
-                  maxLength: 10000
+              $ref: "#/components/schemas/Sighting"
       responses:
         "201":
           description: Created
@@ -54,9 +31,12 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/SightingPreview"
+                allOf:
+                  - type: object
+                  - properties:
+                      id:
+                        type: integer
+                  - $ref: "#/components/schemas/SightingPreview"
         "204":
           description: No Content
 
@@ -101,12 +81,11 @@ components:
     SightingPreview:
       type: object
       properties:
-        id:
-          type: integer
         deathType:
           $ref: "#/components/schemas/DeathType"
         time:
           type: integer
+          description: Time in milliseconds since the epoch (midnight of January 1, 1970, UTC)
         image:
           type: string
           format: binary
@@ -124,8 +103,10 @@ components:
             accuracy:
               type: number
               format: double
+              description: Accuracy of the provided latitude and longitude values in meters
             notes:
               nullable: true
               type: string
+              maxLength: 10000
 
   
