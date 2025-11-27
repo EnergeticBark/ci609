@@ -57,6 +57,26 @@ paths:
         "204":
           description: No Content
 
+  /sightings/{id}:
+    get:
+      summary: Get information about a specific sighting by ID
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+          description: Unique ID of the pangolin sighting
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Sighting"
+        "404":
+          description: Not Found
+
 components:
   schemas:
     DeathType:
@@ -84,20 +104,25 @@ components:
           $ref: "#/components/schemas/DeathType"
         time:
           type: integer
-        latitude:
-          type: number
-          format: double
-        longitude:
-          type: number
-          format: double
-        accuracy:
-          type: number
-          format: double
         image:
           type: string
           format: binary
-        notes:
-          nullable: true
-          type: string
+    Sighting:
+      allOf:
+        - $ref: "#/components/schemas/SightingPreview"
+        - type: object
+        - properties:
+            latitude:
+              type: number
+              format: double
+            longitude:
+              type: number
+              format: double
+            accuracy:
+              type: number
+              format: double
+            notes:
+              nullable: true
+              type: string
 
   
