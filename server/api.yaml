@@ -1,0 +1,50 @@
+openapi: 3.1.0
+info:
+  title: Zap App REST API
+  version: 1.0.0
+servers:
+  - url: https://bsh23.brighton.domains/ci609/assignment1/api
+paths:
+  /sightings:
+    post:
+      summary: Add a Pangolin sighting
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                deathType:
+                  $ref: "#/components/schemas/DeathType"
+                time:
+                  type: integer
+                latitude:
+                  type: number
+                  format: double
+                longitude:
+                  type: number
+                  format: double
+                accuracy:
+                  type: number
+                  format: double
+                image:
+                  type: string
+                  format: binary
+                notes:
+                  nullable: true
+                  type: string
+components:
+  schemas:
+    DeathType:
+      type: string
+      nullable: true
+      enum:
+        - fence
+        - fenceElectrocuted
+        - road
+        - other
+        - null
+
+
+  
