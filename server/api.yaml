@@ -43,6 +43,20 @@ paths:
                 $ref: "#/components/schemas/PostResponse"
         "400":
           description: Bad Request
+    get:
+      summary: Gets a list of Pangolin sightings
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/SightingPreview"
+        "204":
+          description: No Content
+
 components:
   schemas:
     DeathType:
@@ -54,7 +68,6 @@ components:
         - road
         - other
         - null
-
     PostResponse:
       type: object
       properties:
@@ -62,5 +75,29 @@ components:
           type: integer
       example:
         id: 1
+    SightingPreview:
+      type: object
+      properties:
+        id:
+          type: integer
+        deathType:
+          $ref: "#/components/schemas/DeathType"
+        time:
+          type: integer
+        latitude:
+          type: number
+          format: double
+        longitude:
+          type: number
+          format: double
+        accuracy:
+          type: number
+          format: double
+        image:
+          type: string
+          format: binary
+        notes:
+          nullable: true
+          type: string
 
   
