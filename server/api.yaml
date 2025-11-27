@@ -34,6 +34,15 @@ paths:
                 notes:
                   nullable: true
                   type: string
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PostResponse"
+        "400":
+          description: Bad Request
 components:
   schemas:
     DeathType:
@@ -46,5 +55,12 @@ components:
         - other
         - null
 
+    PostResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+      example:
+        id: 1
 
   
