@@ -7,7 +7,7 @@ servers:
 paths:
   /sightings:
     post:
-      summary: Add a Pangolin sighting
+      summary: Add a pangolin sighting
       requestBody:
         required: true
         content:
@@ -44,7 +44,7 @@ paths:
         "400":
           description: Bad Request
     get:
-      summary: Gets a list of Pangolin sightings
+      summary: Get a list of pangolin sightings
       responses:
         "200":
           description: OK
@@ -59,7 +59,7 @@ paths:
 
   /sightings/{id}:
     get:
-      summary: Get information about a specific sighting by ID
+      summary: Get information about a specific pangolin sighting by ID
       parameters:
         - in: path
           name: id
