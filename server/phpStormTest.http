@@ -1,0 +1,12 @@
+# Don't upload this with the coursework!
+# This is only for personal testing, make sure you still write the test.http file, which should be
+# compatible with the "REST Client" VSCode extension (which doesn't support assertions).
+
+### Test GET requests
+run ./phpStormGetTest.http
+
+### Test POST requests
+run ./phpStormPostTest.http
+
+### Test other requests
+run ./phpStormOtherTest.http

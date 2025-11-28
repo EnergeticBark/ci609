@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Nov 24, 2025 at 02:43 PM
+-- Generation Time: Nov 28, 2025 at 02:13 PM
 -- Server version: 8.0.43
 -- PHP Version: 8.3.26
 
@@ -24,33 +24,12 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `deathType`
---
-
-CREATE TABLE `deathType` (
-  `id` int NOT NULL,
-  `name` tinytext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_bin;
-
---
--- Dumping data for table `deathType`
---
-
-INSERT INTO `deathType` (`id`, `name`) VALUES
-(1, 'fence'),
-(2, 'fenceElectrocuted'),
-(3, 'road'),
-(4, 'other');
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `sighting`
 --
 
 CREATE TABLE `sighting` (
   `id` int NOT NULL,
-  `deathType` int DEFAULT NULL,
+  `deathType` enum('fence','fenceElectrocuted','road','other') COLLATE utf8mb4_0900_bin DEFAULT NULL,
   `time` datetime NOT NULL,
   `location` point NOT NULL,
   `accuracy` double NOT NULL,
@@ -63,43 +42,20 @@ CREATE TABLE `sighting` (
 --
 
 --
--- Indexes for table `deathType`
---
-ALTER TABLE `deathType`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Indexes for table `sighting`
 --
 ALTER TABLE `sighting`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `death` (`deathType`) USING BTREE;
+  ADD PRIMARY KEY (`id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT for table `deathType`
---
-ALTER TABLE `deathType`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
---
 -- AUTO_INCREMENT for table `sighting`
 --
 ALTER TABLE `sighting`
   MODIFY `id` int NOT NULL AUTO_INCREMENT;
-
---
--- Constraints for dumped tables
---
-
---
--- Constraints for table `sighting`
---
-ALTER TABLE `sighting`
-  ADD CONSTRAINT `sighting_ibfk_1` FOREIGN KEY (`deathType`) REFERENCES `deathType` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
