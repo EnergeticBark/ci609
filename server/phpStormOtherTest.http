@@ -1,0 +1,10 @@
+@hostname = bsh23.brighton.domains
+
+### Send PUT request with correct parameter
+PUT https://{{hostname}}/ci609/api/sightings/123
+
+> {%
+    client.test("Bad method is not allowed", () => {
+        client.assert(response.status === 405, "Response status is not 405");
+    });
+%}

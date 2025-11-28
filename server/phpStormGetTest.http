@@ -1,0 +1,19 @@
+@hostname = bsh23.brighton.domains
+
+### Send GET request without URL parameter
+GET https://{{hostname}}/ci609/api/sightings/
+
+> {%
+    client.test("Missing URL parameter is a bad request", () => {
+        client.assert(response.status === 400, "Response status is not 400");
+    });
+%}
+
+### Send GET request with invalid sighting ID
+GET https://{{hostname}}/ci609/api/sightings/abcd
+
+> {%
+    client.test("Non-numeric sighting ID is a bad request", () => {
+        client.assert(response.status === 400, "Response status is not 400");
+    });
+%}

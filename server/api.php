@@ -18,9 +18,21 @@ class RestAPI {
         $this->dbh = null;
     }
 
+    private function handleGet(): void
+    {
+        // This will be an integer if the id GET parameter exists and is an integer.
+        $id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
+
+        if (!is_int($id)) {
+            http_response_code(400);
+            return;
+        }
+    }
+
     public function handleRequest(): void
     {
         match ($_SERVER['REQUEST_METHOD']) {
+            'GET' => $this->handleGet(),
             default => http_response_code(405),
         };
     }

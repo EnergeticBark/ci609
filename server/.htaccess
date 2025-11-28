@@ -1,0 +1,3 @@
+RewriteEngine On
+# Match sightings/[any characters]
+RewriteRule \Asightings/(.*)\z api.php?id=$1
