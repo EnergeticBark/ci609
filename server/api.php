@@ -34,10 +34,10 @@ class RestAPI {
         WHERE id = ?
         SQL);
         $sth->execute([$id]);
-        $result = $sth->fetchAll(PDO::FETCH_ASSOC);
+        $result = $sth->fetch(PDO::FETCH_ASSOC);
         $sth = null;
 
-        if ($result === []) {
+        if ($result === false) {
             http_response_code(404);
             return;
         }
