@@ -27,6 +27,22 @@ class RestAPI {
             http_response_code(400);
             return;
         }
+
+        $sth = $this->dbh->prepare(<<<'SQL'
+        SELECT s.id, image, d.name, time, location, accuracy, notes
+        FROM sighting s
+        INNER JOIN deathType d
+        ON s.deathType = d.id
+        WHERE s.id = ?;
+        SQL);
+        $sth->execute([$id]);
+        $result = $sth->fetchAll(PDO::FETCH_ASSOC);
+        $sth = null;
+
+        if ($result === []) {
+            http_response_code(404);
+            return;
+        }
     }
 
     public function handleRequest(): void

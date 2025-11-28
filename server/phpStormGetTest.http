@@ -17,3 +17,16 @@ GET https://{{hostname}}/ci609/api/sightings/abcd
         client.assert(response.status === 400, "Response status is not 400");
     });
 %}
+
+### Send GET request without results
+GET https://{{hostname}}/ci609/api/sightings/0
+
+> {%
+    client.test("Request executed successfully", () => {
+        client.assert(response.status === 404, "Response status is not 404");
+    });
+
+    client.test("Request with no results has empty response body", () => {
+        client.assert(response.body === null, "Response body is not empty");
+    });
+%}
