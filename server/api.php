@@ -29,11 +29,9 @@ class RestAPI {
         }
 
         $sth = $this->dbh->prepare(<<<'SQL'
-        SELECT s.id, image, d.name, time, location, accuracy, notes
-        FROM sighting s
-        INNER JOIN deathType d
-        ON s.deathType = d.id
-        WHERE s.id = ?;
+        SELECT id, image, deathType, time, ST_Latitude(location) as latitude, ST_Longitude(location) as longitude, accuracy, notes
+        FROM sighting
+        WHERE id = ?
         SQL);
         $sth->execute([$id]);
         $result = $sth->fetchAll(PDO::FETCH_ASSOC);
