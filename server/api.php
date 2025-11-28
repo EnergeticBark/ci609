@@ -41,6 +41,11 @@ class RestAPI {
             http_response_code(404);
             return;
         }
+
+        http_response_code(200);
+        header('Content-Type: application/json');
+
+        echo json_encode($result, JSON_PRETTY_PRINT);
     }
 
     public function handleRequest(): void

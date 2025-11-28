@@ -18,7 +18,7 @@ GET https://{{hostname}}/ci609/api/sightings/abcd
     });
 %}
 
-### Send GET request without results
+### Send GET request without result
 GET https://{{hostname}}/ci609/api/sightings/0
 
 > {%
@@ -28,5 +28,19 @@ GET https://{{hostname}}/ci609/api/sightings/0
 
     client.test("Request with no results has empty response body", () => {
         client.assert(response.body === null, "Response body is not empty");
+    });
+%}
+
+### Send GET request with result
+GET https://{{hostname}}/ci609/api/sightings/1
+
+> {%
+    client.test("Request executed successfully", () => {
+        client.assert(response.status === 200, "Response status is not 200");
+    });
+
+    client.test("Response content-type is json", () => {
+        const type = response.contentType.mimeType;
+        client.assert(type === "application/json", `Expected 'application/json' but received '${type}'`);
     });
 %}
