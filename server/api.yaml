@@ -37,15 +37,17 @@ paths:
           content:
             application/json:
               schema:
-                allOf:
-                  - type: object
-                  - properties:
-                      id:
-                        type: integer
-                      image:
-                        type: string
-                        format: uri
-                  - $ref: "#/components/schemas/SightingPreview"
+                type: array
+                items:
+                  allOf:
+                    - type: object
+                    - properties:
+                        id:
+                          type: integer
+                        image:
+                          type: string
+                          format: uri
+                    - $ref: "#/components/schemas/SightingPreview"
         "204":
           description: No Content
 
