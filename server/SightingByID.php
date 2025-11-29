@@ -1,23 +1,10 @@
 <?php
-class RestAPI {
-    private ?PDO $dbh;
+// Set up autoloader as described by: https://www.php.net/manual/en/language.oop5.autoload.php
+spl_autoload_register(function ($class_name) {
+    include $class_name . '.php';
+});
 
-    function __construct()
-    {
-        // Establish connection to the database.
-        $this->dbh = new PDO(
-            'mysql:host=localhost;dbname=bsh23_ci609',
-            'bsh23_zap_app',
-            'qukdoq-dyngis-4fyhVa'
-        );
-    }
-
-    function __destruct()
-    {
-        // Close connection to the database.
-        $this->dbh = null;
-    }
-
+class SightingByID extends Endpoint {
     private function handleGet(): void
     {
         // This will be an integer if the id GET parameter exists and is an integer.
@@ -58,7 +45,7 @@ class RestAPI {
 }
 
 try {
-    $api = new RestAPI();
+    $api = new SightingByID();
     $api->handleRequest();
 } catch (PDOException) {
     http_response_code(500);
