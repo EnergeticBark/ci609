@@ -1,0 +1,7 @@
+# Run all tests for the /api/sightings endpoint.
+
+### Test GET requests
+run ./getTest.http
+
+### Test POST requests
+run ./otherTest.http
