@@ -28,10 +28,18 @@ class Sightings extends Endpoint {
 
     private function handlePost(): void
     {
+        // This will be an integer if the time POST parameter exists and is an integer.
+        $time = filter_input(INPUT_POST, 'time', FILTER_VALIDATE_INT);
+
+        if (!is_int($time)) {
+            http_response_code(400);
+            return;
+        }
+
         http_response_code(201);
         header('Content-Type: application/json');
 
-        echo json_encode([], JSON_PRETTY_PRINT);
+        echo json_encode([$time], JSON_PRETTY_PRINT);
     }
 
     public function handleRequest(): void

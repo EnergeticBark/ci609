@@ -1,0 +1,27 @@
+@hostname = bsh23.brighton.domains
+
+### Send POST request
+POST https://{{hostname}}/ci609/api/sightings
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+
+--WebAppBoundary
+Content-Disposition: form-data; name="time"
+
+1764435302226
+--WebAppBoundary--
+
+### Send POST request with invalid time
+POST https://{{hostname}}/ci609/api/sightings
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+
+--WebAppBoundary
+Content-Disposition: form-data; name="time"
+
+hello
+--WebAppBoundary--
+
+> {%
+    client.test("Non-integer time is a bad request", () => {
+        client.assert(response.status === 400, "Response status is not 400");
+    });
+%}
