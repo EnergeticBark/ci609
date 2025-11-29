@@ -16,7 +16,7 @@ class Sightings extends Endpoint {
         $sth = null;
 
         if ($result === []) {
-            http_response_code(404);
+            http_response_code(204);
             return;
         }
 

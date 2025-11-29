@@ -1,1 +1,15 @@
 @hostname = bsh23.brighton.domains
+
+### Send GET request
+GET https://{{hostname}}/ci609/api/sightings
+
+> {%
+    client.test("Request executed successfully", () => {
+        client.assert(response.status === 200 || response.status === 204, "Response status is not 200 or 204");
+    });
+
+    client.test("Response content-type is json", () => {
+        const type = response.contentType.mimeType;
+        client.assert(type === "application/json", `Expected 'application/json' but received '${type}'`);
+    });
+%}
