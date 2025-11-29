@@ -8,6 +8,21 @@ Content-Type: multipart/form-data; boundary=WebAppBoundary
 Content-Disposition: form-data; name="time"
 
 1764435302226
+
+--WebAppBoundary
+Content-Disposition: form-data; name="latitude"
+
+0.0
+
+--WebAppBoundary
+Content-Disposition: form-data; name="longitude"
+
+0.0
+
+--WebAppBoundary
+Content-Disposition: form-data; name="accuracy"
+
+1.0
 --WebAppBoundary--
 
 ### Send POST request with invalid time
@@ -18,10 +33,56 @@ Content-Type: multipart/form-data; boundary=WebAppBoundary
 Content-Disposition: form-data; name="time"
 
 hello
+
+--WebAppBoundary
+Content-Disposition: form-data; name="latitude"
+
+0.0
+
+--WebAppBoundary
+Content-Disposition: form-data; name="longitude"
+
+0.0
+
+--WebAppBoundary
+Content-Disposition: form-data; name="accuracy"
+
+1.0
 --WebAppBoundary--
 
 > {%
     client.test("Non-integer time is a bad request", () => {
+        client.assert(response.status === 400, "Response status is not 400");
+    });
+%}
+
+### Send POST request with invalid latitude
+POST https://{{hostname}}/ci609/api/sightings
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+
+--WebAppBoundary
+Content-Disposition: form-data; name="time"
+
+1764435302226
+
+--WebAppBoundary
+Content-Disposition: form-data; name="latitude"
+
+whoops
+
+--WebAppBoundary
+Content-Disposition: form-data; name="longitude"
+
+0.0
+
+--WebAppBoundary
+Content-Disposition: form-data; name="accuracy"
+
+1.0
+--WebAppBoundary--
+
+> {%
+    client.test("Non-double latitude is a bad request", () => {
         client.assert(response.status === 400, "Response status is not 400");
     });
 %}

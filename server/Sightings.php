@@ -28,10 +28,13 @@ class Sightings extends Endpoint {
 
     private function handlePost(): void
     {
-        // This will be an integer if the time POST parameter exists and is an integer.
+        // These will be integers/floats if their POST parameters exists and can be parsed.
         $time = filter_input(INPUT_POST, 'time', FILTER_VALIDATE_INT);
+        $latitude = filter_input(INPUT_POST, 'latitude', FILTER_VALIDATE_FLOAT);
+        $longitude = filter_input(INPUT_POST, 'longitude', FILTER_VALIDATE_FLOAT);
+        $accuracy = filter_input(INPUT_POST, 'accuracy', FILTER_VALIDATE_FLOAT);
 
-        if (!is_int($time)) {
+        if (!is_int($time) || !is_float($latitude) || !is_float($longitude) || !is_float($accuracy)) {
             http_response_code(400);
             return;
         }
