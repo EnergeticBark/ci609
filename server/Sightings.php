@@ -44,12 +44,22 @@ class Sightings extends Endpoint {
         $longitude = filter_input(INPUT_POST, 'longitude', FILTER_VALIDATE_FLOAT);
         $accuracy = filter_input(INPUT_POST, 'accuracy', FILTER_VALIDATE_FLOAT);
 
+        function notesFilter(string $value): string|false {
+            // Our database stores notes in a VARCHAR(10000), which measures length in character units rather than
+            // bytes. Source: https://dev.mysql.com/doc/refman/8.0/en/string-type-syntax.html
+            // That's why we measure the length with mb_strlen() instead of strlen().
+            $length = mb_strlen($value, 'UTF-8');
+            return $length > 0 && $length < 10000;
+        };
+        $notes = filter_input(INPUT_POST, 'notes', FILTER_CALLBACK, ['options' => notesFilter(...)]);
+
         if (
             $deathType === false
             || !is_int($time)
             || !is_float($latitude)
             || !is_float($longitude)
             || !is_float($accuracy)
+            || $notes === false
         ) {
             http_response_code(400);
             return;

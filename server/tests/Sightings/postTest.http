@@ -29,6 +29,10 @@ Content-Disposition: form-data; name="accuracy"
 
 1.0
 --WebAppBoundary--
+Content-Disposition: form-data; name="notes"
+
+This is my note.
+--WebAppBoundary--
 
 > {%
     client.test("Request executed successfully", () => {
@@ -39,6 +43,42 @@ Content-Disposition: form-data; name="accuracy"
 ### Send POST request without death type
 POST https://{{hostname}}/ci609/api/sightings
 Content-Type: multipart/form-data; boundary=WebAppBoundary
+
+--WebAppBoundary
+Content-Disposition: form-data; name="time"
+
+1764435302226
+
+--WebAppBoundary
+Content-Disposition: form-data; name="latitude"
+
+0.0
+
+--WebAppBoundary
+Content-Disposition: form-data; name="longitude"
+
+0.0
+
+--WebAppBoundary
+Content-Disposition: form-data; name="accuracy"
+
+1.0
+--WebAppBoundary--
+
+> {%
+    client.test("Request executed successfully", () => {
+        client.assert(response.status === 201, "Response status is not 201");
+    });
+%}
+
+### Send POST request without note
+POST https://{{hostname}}/ci609/api/sightings
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+
+--WebAppBoundary
+Content-Disposition: form-data; name="deathType"
+
+fence
 
 --WebAppBoundary
 Content-Disposition: form-data; name="time"
@@ -161,6 +201,46 @@ Content-Disposition: form-data; name="accuracy"
 
 > {%
     client.test("Non-double latitude is a bad request", () => {
+        client.assert(response.status === 400, "Response status is not 400");
+    });
+%}
+
+### Send POST request with invalid note
+POST https://{{hostname}}/ci609/api/sightings
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+
+--WebAppBoundary
+Content-Disposition: form-data; name="deathType"
+
+fence
+
+--WebAppBoundary
+Content-Disposition: form-data; name="time"
+
+1764435302226
+
+--WebAppBoundary
+Content-Disposition: form-data; name="latitude"
+
+0.0
+
+--WebAppBoundary
+Content-Disposition: form-data; name="longitude"
+
+0.0
+
+--WebAppBoundary
+Content-Disposition: form-data; name="accuracy"
+
+1.0
+--WebAppBoundary
+Content-Disposition: form-data; name="notes"
+
+
+--WebAppBoundary--
+
+> {%
+    client.test("Note with length 0 is a bad request", () => {
         client.assert(response.status === 400, "Response status is not 400");
     });
 %}

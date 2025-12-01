@@ -123,4 +123,5 @@ components:
             notes:
               nullable: true
               type: string
+              minLength: 1
               maxLength: 10000
