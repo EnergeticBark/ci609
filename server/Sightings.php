@@ -28,13 +28,29 @@ class Sightings extends Endpoint {
 
     private function handlePost(): void
     {
+        function deathTypeFilter(string $value): string|false {
+            $validDeathTypes = ['fence', 'fenceElectrocuted', 'road', 'other'];
+            if (in_array($value, $validDeathTypes, true)) {
+                return $value;
+            }
+
+            return false;
+        };
+        $deathType = filter_input(INPUT_POST, 'deathType', FILTER_CALLBACK, ['options' => deathTypeFilter(...)]);
+
         // These will be integers/floats if their POST parameters exists and can be parsed.
         $time = filter_input(INPUT_POST, 'time', FILTER_VALIDATE_INT);
         $latitude = filter_input(INPUT_POST, 'latitude', FILTER_VALIDATE_FLOAT);
         $longitude = filter_input(INPUT_POST, 'longitude', FILTER_VALIDATE_FLOAT);
         $accuracy = filter_input(INPUT_POST, 'accuracy', FILTER_VALIDATE_FLOAT);
 
-        if (!is_int($time) || !is_float($latitude) || !is_float($longitude) || !is_float($accuracy)) {
+        if (
+            $deathType === false
+            || !is_int($time)
+            || !is_float($latitude)
+            || !is_float($longitude)
+            || !is_float($accuracy)
+        ) {
             http_response_code(400);
             return;
         }
