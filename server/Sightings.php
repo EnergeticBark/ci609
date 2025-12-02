@@ -89,10 +89,28 @@ class Sightings extends Endpoint {
             throw new BadRequest('Parameter missing or invalid');
         }
 
+        $sth = $this->dbh->prepare(<<<'SQL'
+        INSERT INTO sighting 
+            (deathType, time, location, accuracy, image, notes)
+        VALUES
+            (:deathType, FROM_UNIXTIME(:time / 1000), ST_PointFromText(:location, 4326), :accuracy, :image, :notes);
+        SQL);
+        $sth->execute([
+            ":deathType" => $deathType,
+            ":time" => $time,
+            ":location" => "POINT($latitude $longitude)",
+            ":accuracy" => $accuracy,
+            ":image" => $imageUrl,
+            ":notes" => $notes,
+        ]);
+        $sth = null;
+
+        $id = intval($this->dbh->lastInsertId());
+
         http_response_code(201);
         header('Content-Type: application/json');
 
-        echo json_encode([$time], JSON_PRETTY_PRINT);
+        echo json_encode(['id' => $id], JSON_PRETTY_PRINT);
     }
 
     /**
