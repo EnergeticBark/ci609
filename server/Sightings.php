@@ -28,7 +28,8 @@ class Sightings extends Endpoint {
 
     private function handlePost(): void
     {
-        if ($_FILES['image']['error'] === UPLOAD_ERR_OK) {
+        // TODO: Make this more monadic, refactor all of these early returns into exceptions.
+        if ($_FILES['image']['error'] !== UPLOAD_ERR_OK) {
             http_response_code(400);
             return;
         }

@@ -7,7 +7,7 @@ Content-Type: multipart/form-data; boundary=WebAppBoundary
 --WebAppBoundary
 Content-Disposition: form-data; name="image"; filename="pangolin.jpg"
 
-< ./pangolin.jpg
+< ./images/pangolin_3m.jpg
 
 --WebAppBoundary
 Content-Disposition: form-data; name="deathType"
