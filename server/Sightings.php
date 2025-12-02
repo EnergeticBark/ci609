@@ -28,6 +28,26 @@ class Sightings extends Endpoint {
 
     private function handlePost(): void
     {
+        if ($_FILES['image']['error'] === UPLOAD_ERR_OK) {
+            http_response_code(400);
+            return;
+        }
+
+        $tmpName = $_FILES['image']['tmp_name'];
+        $uploadedMime = mime_content_type($tmpName);
+        $validMimes = ['image/jpeg', 'image/png'];
+        if (!in_array($uploadedMime, $validMimes, true)) {
+            http_response_code(400);
+            return;
+        }
+
+        $uploadDestination = 'uploads/hi.jpg';
+        if (!move_uploaded_file($tmpName, $uploadDestination)) {
+            http_response_code(400);
+            return;
+        }
+        $imageUrl = 'https://bsh23.brighton.domains/ci609/api/' . $uploadDestination;
+
         function deathTypeFilter(string $value): string|false {
             $validDeathTypes = ['fence', 'fenceElectrocuted', 'road', 'other'];
             if (in_array($value, $validDeathTypes, true)) {
@@ -35,7 +55,7 @@ class Sightings extends Endpoint {
             }
 
             return false;
-        };
+        }
         $deathType = filter_input(INPUT_POST, 'deathType', FILTER_CALLBACK, ['options' => deathTypeFilter(...)]);
 
         // These will be integers/floats if their POST parameters exists and can be parsed.
@@ -50,7 +70,7 @@ class Sightings extends Endpoint {
             // That's why we measure the length with mb_strlen() instead of strlen().
             $length = mb_strlen($value, 'UTF-8');
             return $length > 0 && $length < 10000;
-        };
+        }
         $notes = filter_input(INPUT_POST, 'notes', FILTER_CALLBACK, ['options' => notesFilter(...)]);
 
         if (
