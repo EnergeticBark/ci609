@@ -7,7 +7,7 @@ Content-Type: multipart/form-data; boundary=WebAppBoundary
 --WebAppBoundary
 Content-Disposition: form-data; name="image"; filename="pangolin.jpg"
 
-< ./images/pangolin_3m.jpg
+< ./images/pangolin.jpg
 
 --WebAppBoundary
 Content-Disposition: form-data; name="deathType"
@@ -50,6 +50,11 @@ POST https://{{hostname}}/ci609/api/sightings
 Content-Type: multipart/form-data; boundary=WebAppBoundary
 
 --WebAppBoundary
+Content-Disposition: form-data; name="image"; filename="pangolin.jpg"
+
+< ./images/pangolin.jpg
+
+--WebAppBoundary
 Content-Disposition: form-data; name="time"
 
 1764435302226
@@ -79,6 +84,11 @@ Content-Disposition: form-data; name="accuracy"
 ### Send POST request without note
 POST https://{{hostname}}/ci609/api/sightings
 Content-Type: multipart/form-data; boundary=WebAppBoundary
+
+--WebAppBoundary
+Content-Disposition: form-data; name="image"; filename="pangolin.jpg"
+
+< ./images/pangolin.jpg
 
 --WebAppBoundary
 Content-Disposition: form-data; name="deathType"
@@ -117,6 +127,11 @@ POST https://{{hostname}}/ci609/api/sightings
 Content-Type: multipart/form-data; boundary=WebAppBoundary
 
 --WebAppBoundary
+Content-Disposition: form-data; name="image"; filename="pangolin.jpg"
+
+< ./images/pangolin.jpg
+
+--WebAppBoundary
 Content-Disposition: form-data; name="deathType"
 
 hello
@@ -153,6 +168,11 @@ POST https://{{hostname}}/ci609/api/sightings
 Content-Type: multipart/form-data; boundary=WebAppBoundary
 
 --WebAppBoundary
+Content-Disposition: form-data; name="image"; filename="pangolin.jpg"
+
+< ./images/pangolin.jpg
+
+--WebAppBoundary
 Content-Disposition: form-data; name="time"
 
 hello
@@ -184,6 +204,11 @@ POST https://{{hostname}}/ci609/api/sightings
 Content-Type: multipart/form-data; boundary=WebAppBoundary
 
 --WebAppBoundary
+Content-Disposition: form-data; name="image"; filename="pangolin.jpg"
+
+< ./images/pangolin.jpg
+
+--WebAppBoundary
 Content-Disposition: form-data; name="time"
 
 1764435302226
@@ -213,6 +238,11 @@ Content-Disposition: form-data; name="accuracy"
 ### Send POST request with invalid note
 POST https://{{hostname}}/ci609/api/sightings
 Content-Type: multipart/form-data; boundary=WebAppBoundary
+
+--WebAppBoundary
+Content-Disposition: form-data; name="image"; filename="pangolin.jpg"
+
+< ./images/pangolin.jpg
 
 --WebAppBoundary
 Content-Disposition: form-data; name="deathType"
