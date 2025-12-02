@@ -1,7 +1,8 @@
 @hostname = bsh23.brighton.domains
+@endpoint = https://{{hostname}}/ci609/api/sightings
 
 ### Send PUT request
-PUT https://{{hostname}}/ci609/api/sightings
+PUT {{endpoint}}
 
 > {%
     client.test("Bad method is not allowed", () => {

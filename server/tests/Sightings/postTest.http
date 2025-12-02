@@ -1,7 +1,8 @@
 @hostname = bsh23.brighton.domains
+@endpoint = https://{{hostname}}/ci609/api/sightings
 
 ### Send POST request
-POST https://{{hostname}}/ci609/api/sightings
+POST {{endpoint}}
 Content-Type: multipart/form-data; boundary=WebAppBoundary
 
 --WebAppBoundary
@@ -46,7 +47,7 @@ This is my note.
 %}
 
 ### Send POST request without image
-POST https://{{hostname}}/ci609/api/sightings
+POST {{endpoint}}
 Content-Type: multipart/form-data; boundary=WebAppBoundary
 
 --WebAppBoundary
@@ -82,7 +83,7 @@ Content-Disposition: form-data; name="accuracy"
 %}
 
 ### Send POST request without death type
-POST https://{{hostname}}/ci609/api/sightings
+POST {{endpoint}}
 Content-Type: multipart/form-data; boundary=WebAppBoundary
 
 --WebAppBoundary
@@ -118,7 +119,7 @@ Content-Disposition: form-data; name="accuracy"
 %}
 
 ### Send POST request without note
-POST https://{{hostname}}/ci609/api/sightings
+POST {{endpoint}}
 Content-Type: multipart/form-data; boundary=WebAppBoundary
 
 --WebAppBoundary
@@ -159,7 +160,7 @@ Content-Disposition: form-data; name="accuracy"
 %}
 
 ### Send POST request with invalid deathType
-POST https://{{hostname}}/ci609/api/sightings
+POST {{endpoint}}
 Content-Type: multipart/form-data; boundary=WebAppBoundary
 
 --WebAppBoundary
@@ -200,7 +201,7 @@ Content-Disposition: form-data; name="accuracy"
 %}
 
 ### Send POST request with invalid time
-POST https://{{hostname}}/ci609/api/sightings
+POST {{endpoint}}
 Content-Type: multipart/form-data; boundary=WebAppBoundary
 
 --WebAppBoundary
@@ -236,7 +237,7 @@ Content-Disposition: form-data; name="accuracy"
 %}
 
 ### Send POST request with invalid latitude
-POST https://{{hostname}}/ci609/api/sightings
+POST {{endpoint}}
 Content-Type: multipart/form-data; boundary=WebAppBoundary
 
 --WebAppBoundary
@@ -272,7 +273,7 @@ Content-Disposition: form-data; name="accuracy"
 %}
 
 ### Send POST request with invalid note
-POST https://{{hostname}}/ci609/api/sightings
+POST {{endpoint}}
 Content-Type: multipart/form-data; boundary=WebAppBoundary
 
 --WebAppBoundary

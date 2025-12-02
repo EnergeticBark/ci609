@@ -1,7 +1,8 @@
 @hostname = bsh23.brighton.domains
+@endpoint = https://{{hostname}}/ci609/api/sightings
 
 ### Send GET request
-GET https://{{hostname}}/ci609/api/sightings
+GET {{endpoint}}
 
 > {%
     client.test("Request executed successfully", () => {
