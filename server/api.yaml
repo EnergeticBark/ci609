@@ -19,6 +19,7 @@ paths:
                     image:
                       type: string
                       format: binary
+                      description: "Picture of the pangolin. Maximum file size: 10M"
                 - $ref: "#/components/schemas/Sighting"
       responses:
         "201":
@@ -123,4 +124,5 @@ components:
             notes:
               nullable: true
               type: string
+              minLength: 1
               maxLength: 10000

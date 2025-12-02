@@ -3,5 +3,5 @@
 ### Test GET requests
 run ./getTest.http
 
-### Test POST requests
+### Test other requests
 run ./otherTest.http

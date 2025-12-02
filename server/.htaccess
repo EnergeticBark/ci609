@@ -1,4 +1,5 @@
 RewriteEngine On
-# Match sightings/[any characters]
+# Match /api/sightings/[any characters]
 RewriteRule \Asightings/(.*)\z SightingByID.php?id=$1
+# Match /api/sightings
 RewriteRule \Asightings\z Sightings.php

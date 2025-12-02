@@ -4,4 +4,7 @@
 run ./getTest.http
 
 ### Test POST requests
+run ./postTest.http
+
+### Test other requests
 run ./otherTest.http

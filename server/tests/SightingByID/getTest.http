@@ -1,7 +1,8 @@
 @hostname = bsh23.brighton.domains
+@endpoint = https://{{hostname}}/ci609/api/sightings/
 
 ### Send GET request without URL parameter
-GET https://{{hostname}}/ci609/api/sightings/
+GET {{endpoint}}
 
 > {%
     client.test("Missing URL parameter is a bad request", () => {
@@ -10,7 +11,7 @@ GET https://{{hostname}}/ci609/api/sightings/
 %}
 
 ### Send GET request with invalid sighting ID
-GET https://{{hostname}}/ci609/api/sightings/abcd
+GET {{endpoint}}abcd
 
 > {%
     client.test("Non-numeric sighting ID is a bad request", () => {
@@ -19,7 +20,7 @@ GET https://{{hostname}}/ci609/api/sightings/abcd
 %}
 
 ### Send GET request without result
-GET https://{{hostname}}/ci609/api/sightings/0
+GET {{endpoint}}0
 
 > {%
     client.test("Request executed successfully", () => {
@@ -32,7 +33,7 @@ GET https://{{hostname}}/ci609/api/sightings/0
 %}
 
 ### Send GET request with result
-GET https://{{hostname}}/ci609/api/sightings/1
+GET {{endpoint}}1
 
 > {%
     client.test("Request executed successfully", () => {
