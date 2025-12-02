@@ -5,6 +5,11 @@ POST https://{{hostname}}/ci609/api/sightings
 Content-Type: multipart/form-data; boundary=WebAppBoundary
 
 --WebAppBoundary
+Content-Disposition: form-data; name="image"; filename="pangolin.jpg"
+
+< ./pangolin.jpg
+
+--WebAppBoundary
 Content-Disposition: form-data; name="deathType"
 
 fence
