@@ -45,6 +45,42 @@ This is my note.
     });
 %}
 
+### Send POST request without image
+POST https://{{hostname}}/ci609/api/sightings
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+
+--WebAppBoundary
+Content-Disposition: form-data; name="deathType"
+
+fence
+
+--WebAppBoundary
+Content-Disposition: form-data; name="time"
+
+1764435302226
+
+--WebAppBoundary
+Content-Disposition: form-data; name="latitude"
+
+0.0
+
+--WebAppBoundary
+Content-Disposition: form-data; name="longitude"
+
+0.0
+
+--WebAppBoundary
+Content-Disposition: form-data; name="accuracy"
+
+1.0
+--WebAppBoundary--
+
+> {%
+    client.test("No image is a bad request", () => {
+        client.assert(response.status === 400, "Response status is not 400");
+    });
+%}
+
 ### Send POST request without death type
 POST https://{{hostname}}/ci609/api/sightings
 Content-Type: multipart/form-data; boundary=WebAppBoundary
