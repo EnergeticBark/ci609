@@ -1,0 +1,246 @@
+/* TODO: many of these styles go unused, or could otherwise be attached to components */
+/* Set up alternative box model */
+html {
+    box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: inherit;
+}
+
+/* Color scheme based on https://github.com/catppuccin/catppuccin
+   Licensed under MIT.
+ */
+:root {
+    --blue: #1e66f5;
+    --blue-hover: #1e66f5dd;
+    --crust: #dce0e8;
+    --mantle: #e6e9ef;
+    --base: #eff1f5;
+    --surface-0: #ccd0da;
+    --surface-1: #bcc0cc;
+    --text: #4c4f69;
+    --sub-text-0: #6c6f85;
+    --sub-text-1: #5c5f77;
+}
+
+/* Sections */
+html, body {
+    height: 100%;
+}
+
+body {
+    font-family: Helvetica, Arial, serif;
+    display: flex;
+    justify-content: center;
+    background-color: var(--crust);
+    color: var(--text);
+}
+
+#wrapper {
+    max-width: 70rem;
+    width: 100%;
+    min-height: 100%;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+}
+
+header {
+    padding: 0 1rem;
+    background-color: var(--mantle);
+}
+
+main {
+    padding: 0 1rem 1.5rem;
+    background-color: var(--mantle);
+}
+
+footer {
+    text-align: center;
+    padding: 1.5rem 0;
+    background-color: var(--base);
+}
+
+/* Text */
+h2 {
+    color: var(--sub-text-0);
+}
+
+label {
+    color: var(--sub-text-1);
+}
+
+/* Form elements */
+#query {
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    border: 1px solid var(--surface-1);
+    background-color:  var(--base);
+    color: var(--text);
+}
+
+button {
+    border-radius: 0.5rem;
+    border: 1px solid var(--surface-1);
+    background-color: var(--blue);
+    color: whitesmoke;
+    padding: 0.5rem;
+}
+
+button:hover {
+    cursor: pointer;
+    background-color: var(--blue-hover);
+    color: #fff;
+}
+
+#loading-indicator {
+    margin: 1rem 0;
+}
+
+/* Gallery elements */
+.result-preview {
+    background-color: var(--base);
+    border: 1px solid var(--surface-1);
+    border-radius: 0.5rem;
+    text-align: center;
+    text-wrap: balance;
+    overflow: auto;
+    overflow-wrap: break-word;
+}
+
+.result-preview:hover {
+    cursor: pointer;
+    background-color: var(--mantle);
+}
+
+.result-preview div {
+    background-color: var(--mantle);
+    align-content: center;
+    border-bottom: 1px solid var(--surface-1);
+}
+
+.result-preview:hover div {
+    background-color: var(--crust);
+}
+
+.result-preview img {
+    width: 100%;
+    max-height: 12rem;
+    height: auto;
+    object-fit: contain;
+    display: block;
+}
+
+.result-preview h3 {
+    margin: 0.25rem 0.5rem 0.5rem;
+    align-content: center;
+}
+
+.result-preview:hover h3 {
+    text-decoration: underline;
+}
+
+.result-preview p {
+    padding: 0.25rem 0.5625rem 0.25rem 0.5rem;
+    margin: 0;
+    border-top: 1px solid var(--surface-1);
+    border-left: 1px solid var(--surface-1);
+    border-top-left-radius: 0.5rem;
+    background-color: var(--mantle);
+}
+
+.result-preview:hover p {
+    background-color: var(--crust);
+}
+
+/* Fullscreen view */
+#fullscreen-image img {
+    max-height: 50vh;
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+}
+
+.description {
+    overflow: auto;
+    overflow-wrap: anywhere;
+    background-color: var(--base);
+    padding: 1rem;
+    border-radius: 0.5rem;
+}
+
+/* Form grid layout */
+label { grid-area: label; }
+#query { grid-area: query; }
+button { grid-area: button; }
+
+form {
+    display: grid;
+    grid-gap: 0.5rem;
+    grid-auto-columns: 1fr auto;
+    grid-template-areas:
+            "label ."
+            "query button";
+}
+
+/* Gallery grid layout */
+#gallery {
+    display: grid;
+    grid-gap: 0.5rem;
+    grid-template-columns: 1fr 1fr;
+}
+
+/* Result preview grid layout */
+.result-preview {
+    display: grid;
+    /* Show the time on the bottom right corner of the card, taking up only as much width as it's content. */
+    grid-template-columns: 1fr auto;
+    /* The W3C validator will say this is invalid, this is an open issue:
+       https://github.com/w3c/css-validator/issues/389
+       https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_grid_layout/Subgrid#browser_compatibility
+     */
+    grid-template-rows: subgrid;
+    grid-row: span 3;
+    grid-template-areas:
+        "image image"
+        "title title"
+        ".     time";
+}
+
+.result-preview div { grid-area: image; }
+.result-preview h3 { grid-area: title; }
+.result-preview p { grid-area: time; }
+
+
+/* Media breakpoints:
+   70rem: Desktop
+   50rem: Tablet
+   40rem: Mobile phone
+ */
+@media (width >= 40rem) {
+    #gallery {
+        grid-gap: 1rem;
+    }
+
+    header {
+        padding: 0 3rem;
+    }
+
+    main {
+        padding: 0 3rem 1.5rem;
+    }
+}
+
+@media (width >= 50rem) {
+    #gallery {
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+}
+
+@media (width >= 70rem) {
+    #gallery {
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+    }
+}
