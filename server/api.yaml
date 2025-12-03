@@ -3,7 +3,7 @@ info:
   title: Zap App REST API
   version: 1.0.0
 servers:
-  - url: https://bsh23.brighton.domains/ci609/assignment1/api
+  - url: https://bsh23.brighton.domains/ci609/api
 paths:
   /sightings:
     post:
