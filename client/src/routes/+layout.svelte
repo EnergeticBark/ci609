@@ -1,6 +1,8 @@
 <script>
     import favicon from '$lib/assets/favicon.svg';
 
+    import 'modern-normalize';
+
 	let { children } = $props();
 </script>
 
