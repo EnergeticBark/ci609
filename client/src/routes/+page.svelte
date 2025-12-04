@@ -1,5 +1,6 @@
 <script>
     import SightingPreview from "$lib/components/SightingPreview.svelte";
+    import UploadButton from "$lib/components/UploadButton.svelte";
 
     let { data } = $props();
 </script>
@@ -9,6 +10,7 @@
 </header>
 
 <main>
+    <UploadButton href="/ci609/upload">Upload new sightings</UploadButton>
     {#await data.sightings}
         <label>Loading pangolin sightings...<progress></progress></label>
     {:then sightings}

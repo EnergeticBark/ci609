@@ -37,7 +37,6 @@
     }
 
     article:hover {
-        cursor: pointer;
         background-color: var(--mantle);
     }
 

@@ -81,20 +81,6 @@ label {
     color: var(--text);
 }
 
-button {
-    border-radius: 0.5rem;
-    border: 1px solid var(--surface-1);
-    background-color: var(--blue);
-    color: whitesmoke;
-    padding: 0.5rem;
-}
-
-button:hover {
-    cursor: pointer;
-    background-color: var(--blue-hover);
-    color: #fff;
-}
-
 #loading-indicator {
     margin: 1rem 0;
 }
