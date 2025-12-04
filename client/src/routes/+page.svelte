@@ -1,4 +1,6 @@
 <script>
+    import SightingPreview from "$lib/components/SightingPreview.svelte";
+
     let { data } = $props();
 </script>
 
@@ -11,21 +13,11 @@
         <label>Loading pangolin sightings...<progress></progress></label>
     {:then sightings}
         <h2>Pangolin sightings</h2>
-        <dl>
-            {#each sightings as { id, image, deathType, time }}
-                <dt>id</dt>
-                <dd>{id}</dd>
-
-                <dt>image</dt>
-                <dd>{image}</dd>
-
-                <dt>deathType</dt>
-                <dd>{deathType}</dd>
-
-                <dt>time</dt>
-                <dd>{time}</dd>
+        <div id="gallery">
+            {#each sightings as sighting}
+                <SightingPreview {...sighting} />
             {/each}
-        </dl>
+        </div>
     {/await}
 </main>
 
