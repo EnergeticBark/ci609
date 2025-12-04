@@ -1,5 +1,5 @@
 <script>
-    let { id, image, deathType, time } = $props();
+    let { href, image, deathType, time } = $props();
 
     let statusMessage = $derived.by(() => {
         switch(deathType) {
@@ -16,7 +16,7 @@
 </script>
 
 <article>
-    <a href="/ci609/sightings/{id}">
+    <a {href}>
         <div>
             <img src={image} alt="" loading="lazy">
         </div>
