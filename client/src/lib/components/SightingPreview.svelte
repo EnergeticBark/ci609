@@ -16,11 +16,13 @@
 </script>
 
 <article>
-    <div>
-        <img src={image} alt="" loading="lazy">
-    </div>
-    <h3>{statusMessage}</h3>
-    <p>{time}</p>
+    <a href="/ci609/sightings/{id}">
+        <div>
+            <img src={image} alt="" loading="lazy">
+        </div>
+        <h3>{statusMessage}</h3>
+        <p>{time}</p>
+    </a>
 </article>
 
 <style>
@@ -37,6 +39,12 @@
     article:hover {
         cursor: pointer;
         background-color: var(--mantle);
+    }
+
+    a {
+        display: contents;
+        text-decoration: none;
+        color: inherit;
     }
 
     article div {
