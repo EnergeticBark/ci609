@@ -1,12 +1,25 @@
 <script>
     let { id, image, deathType, time } = $props();
+
+    let statusMessage = $derived.by(() => {
+        switch(deathType) {
+            case "fence":
+                return "Caught on fence";
+            case "fenceElectrocuted":
+                return "Electrocuted on fence";
+            case "road":
+                return "Killed on road";
+            default:
+                return "Alive";
+        }
+    });
 </script>
 
 <article>
     <div>
         <img src={image} alt="" loading="lazy">
     </div>
-    <h3>ID: {id}</h3>
+    <h3>{statusMessage}</h3>
     <p>{time}</p>
 </article>
 
