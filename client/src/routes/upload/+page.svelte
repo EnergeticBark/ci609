@@ -4,6 +4,10 @@
 <main>
     <h2>Add new sightings</h2>
     <form action="#">
+        <label for="image">Image:</label>
+        <!-- On all major mobile browsers capture="environment" will prompt the user to take a photo. -->
+        <!-- See: https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Attributes/capture -->
+        <input type="file" id="image" accept="image/png, image/jpeg" capture="environment" />
         <label for="status">Pangolin status:</label>
         <select id="status">
             <optgroup label="Alive">
@@ -31,29 +35,12 @@
     #notes {
         min-height: 9rem;
         resize: vertical;
-
         padding: 0.5rem;
-        border-radius: 0.5rem;
-        border: 1px solid var(--surface-1);
-        background-color:  var(--base);
-        color: var(--text);
     }
 
-    /* Grid layout */
-    label[for="status"] { grid-area: status_label; }
-    #status { grid-area: status; }
-    label[for="notes"] { grid-area: notes_label; }
-    #notes { grid-area: notes; }
-    button { grid-area: button; }
-
     form {
-        display: grid;
-        grid-gap: 0.5rem;
-        grid-auto-columns: 1fr auto;
-        grid-template-areas:
-            "status_label ."
-            "status ."
-            "notes_label ."
-            "notes .";
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
     }
 </style>
