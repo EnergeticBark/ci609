@@ -1,4 +1,14 @@
 <script>
+    let position = $state.raw(null);
+    let positionError = $state("");
+
+    function getGeolocation() {
+        navigator.geolocation.getCurrentPosition(
+            (currentPosition) => position = currentPosition,
+            (error) => positionError = error.message,
+            { enableHighAccuracy: true }
+        );
+    }
 </script>
 
 <main>
@@ -21,10 +31,25 @@
         </select>
         <label for="notes">Additional details, such as the type of fence or road. (optional):</label>
         <textarea id="notes"></textarea>
+        <label for="location">Location:</label>
+        <button id="location" onclick={getGeolocation}>Provide location</button>
+        {#if positionError !== ""}<p>{positionError}</p>{/if}
+        {#if position}
+            <p>Latitude: {position.coords.latitude}</p>
+            <p>Longitude: {position.coords.longitude}</p>
+            <p>Accuracy: {position.coords.accuracy}</p>
+            <p>Time: {position.timestamp}</p>
+        {/if}
     </form>
 </main>
 
 <style>
+    form {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
     select, textarea {
         border-radius: 0.5rem;
         border: 1px solid var(--surface-1);
@@ -38,9 +63,17 @@
         padding: 0.5rem;
     }
 
-    form {
-        display: flex;
-        flex-direction: column;
-        gap: 0.5rem;
+    button {
+        border-radius: 0.5rem;
+        border: 1px solid var(--surface-1);
+        background-color: var(--blue);
+        color: whitesmoke;
+        padding: 0.5rem;
+    }
+
+    button:hover {
+        cursor: pointer;
+        background-color: var(--blue-hover);
+        color: #fff;
     }
 </style>
