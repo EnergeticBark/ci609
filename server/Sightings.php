@@ -74,7 +74,11 @@ class Sightings extends Endpoint {
             // bytes. Source: https://dev.mysql.com/doc/refman/8.0/en/string-type-syntax.html
             // That's why we measure the length with mb_strlen() instead of strlen().
             $length = mb_strlen($value, 'UTF-8');
-            return $length > 0 && $length < 10000;
+
+            if ($length > 0 && $length < 10000) {
+                return $value;
+            }
+            return false;
         }
         $notes = filter_input(INPUT_POST, 'notes', FILTER_CALLBACK, ['options' => notesFilter(...)]);
 
