@@ -15,11 +15,23 @@
                 <option value="road">Killed on road</option>
             </optgroup>
         </select>
+        <label for="notes">Additional details, such as the type of fence or road. (optional):</label>
+        <textarea id="notes"></textarea>
     </form>
 </main>
 
 <style>
-    #status {
+    select, textarea {
+        border-radius: 0.5rem;
+        border: 1px solid var(--surface-1);
+        background-color:  var(--base);
+        color: var(--text);
+    }
+
+    #notes {
+        min-height: 9rem;
+        resize: vertical;
+
         padding: 0.5rem;
         border-radius: 0.5rem;
         border: 1px solid var(--surface-1);
@@ -28,8 +40,10 @@
     }
 
     /* Grid layout */
-    label { grid-area: label; }
-    #status { grid-area: query; }
+    label[for="status"] { grid-area: status_label; }
+    #status { grid-area: status; }
+    label[for="notes"] { grid-area: notes_label; }
+    #notes { grid-area: notes; }
     button { grid-area: button; }
 
     form {
@@ -37,7 +51,9 @@
         grid-gap: 0.5rem;
         grid-auto-columns: 1fr auto;
         grid-template-areas:
-            "label ."
-            "query button";
+            "status_label ."
+            "status ."
+            "notes_label ."
+            "notes .";
     }
 </style>
