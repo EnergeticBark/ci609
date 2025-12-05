@@ -53,7 +53,11 @@ class Sightings extends Endpoint {
         }
         $imageUrl = 'https://bsh23.brighton.domains/ci609/api/' . $uploadDestination;
 
-        function deathTypeFilter(string $value): string|false {
+        function deathTypeFilter(string $value): string|null|false {
+            if ($value === "") {
+                return null;
+            }
+
             $validDeathTypes = ['fence', 'fenceElectrocuted', 'road', 'other'];
             if (in_array($value, $validDeathTypes, true)) {
                 return $value;
@@ -69,13 +73,17 @@ class Sightings extends Endpoint {
         $longitude = filter_input(INPUT_POST, 'longitude', FILTER_VALIDATE_FLOAT);
         $accuracy = filter_input(INPUT_POST, 'accuracy', FILTER_VALIDATE_FLOAT);
 
-        function notesFilter(string $value): string|false {
+        function notesFilter(string $value): string|null|false {
+            if ($value === "") {
+                return null;
+            }
+
             // Our database stores notes in a VARCHAR(10000), which measures length in character units rather than
             // bytes. Source: https://dev.mysql.com/doc/refman/8.0/en/string-type-syntax.html
             // That's why we measure the length with mb_strlen() instead of strlen().
             $length = mb_strlen($value, 'UTF-8');
 
-            if ($length > 0 && $length < 10000) {
+            if ($length < 10000) {
                 return $value;
             }
             return false;
