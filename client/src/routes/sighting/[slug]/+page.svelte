@@ -18,7 +18,7 @@
 </script>
 
 <main>
-    <article id="fullscreen-image">
+    <article>
         <h2>Sighting Details</h2>
         {#await data.sighting}
             <label>Loading sighting details...<progress></progress></label>
@@ -39,3 +39,20 @@
         {/await}
     </article>
 </main>
+
+<style>
+    img {
+        max-height: 50vh;
+        width: 100%;
+        height: auto;
+        object-fit: contain;
+    }
+
+    .description {
+        overflow: auto;
+        overflow-wrap: anywhere;
+        background-color: var(--base);
+        padding: 1rem;
+        border-radius: 0.5rem;
+    }
+</style>

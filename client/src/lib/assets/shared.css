@@ -85,22 +85,6 @@ label {
     margin: 1rem 0;
 }
 
-/* Fullscreen view */
-#fullscreen-image img {
-    max-height: 50vh;
-    width: 100%;
-    height: auto;
-    object-fit: contain;
-}
-
-.description {
-    overflow: auto;
-    overflow-wrap: anywhere;
-    background-color: var(--base);
-    padding: 1rem;
-    border-radius: 0.5rem;
-}
-
 /* Form grid layout */
 label { grid-area: label; }
 #query { grid-area: query; }
