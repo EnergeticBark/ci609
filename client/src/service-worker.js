@@ -62,6 +62,11 @@ self.addEventListener('fetch', (event) => {
             }
         }
 
+        // Respond to all navigate requests with our app's root
+        if (event.request.mode === 'navigate') {
+            return await cache.match(`${base}/`);
+        }
+
         // Fall back to the network
         return fetch(event.request);
     }
