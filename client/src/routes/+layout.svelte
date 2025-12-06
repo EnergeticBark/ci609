@@ -9,6 +9,7 @@
 </script>
 
 <svelte:head>
+    <link rel="manifest" href="manifest.json" />
 	<link rel="icon" href={favicon} />
 </svelte:head>
 
