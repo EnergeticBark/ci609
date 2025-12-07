@@ -42,6 +42,7 @@
 
 <style>
     img {
+        background-color: var(--base);
         max-height: 50vh;
         width: 100%;
         height: auto;
