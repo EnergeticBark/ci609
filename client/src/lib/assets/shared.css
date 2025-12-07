@@ -24,6 +24,7 @@ html {
     --text: #4c4f69;
     --sub-text-0: #6c6f85;
     --sub-text-1: #5c5f77;
+    --overlay-0: #9ca0b0;
 }
 
 /* Sections */
@@ -44,7 +45,7 @@ body {
     width: 100%;
     min-height: 100%;
     display: grid;
-    grid-template-rows: auto 1fr auto;
+    grid-template-rows: auto auto 1fr auto;
 }
 
 header {

@@ -3,7 +3,7 @@
 
     import 'modern-normalize';
     import '$lib/assets/shared.css';
-    import UploadButton from "$lib/components/UploadButton.svelte";
+    import Navigation from "$lib/components/Navigation.svelte";
 
 	let { children } = $props();
 </script>
@@ -15,8 +15,8 @@
 
 <header>
     <h1>Zap App Client</h1>
-    <UploadButton href="/ci609/upload">Upload new sightings</UploadButton>
 </header>
+<Navigation />
 
 {@render children()}
 
