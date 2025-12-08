@@ -1,4 +1,8 @@
 <script>
+    import SightingPreview from "$lib/components/SightingPreview.svelte";
+
+    let { data } = $props();
+
     let position = $state.raw(null);
     let positionError = $state("");
 
@@ -13,6 +17,39 @@
     async function handleSubmit(event) {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
+
+        const request = window.indexedDB.open("ZapApp", 5);
+        request.onerror = (event) => {
+            console.error("Why didn't you allow my web app to use IndexedDB?!");
+        }
+
+        request.onupgradeneeded = (event) => {
+            const db = event.target.result;
+
+            const objectStore = db.createObjectStore("sightings", { autoIncrement: true });
+        }
+
+        request.onsuccess = (event) => {
+            const db = event.target.result;
+
+            db.onerror = (event) => {
+                console.error(event.target.error?.message);
+            };
+
+            let offlineSighting;
+            // FormData doesn't support cloning, so take each key/val pair one-by-one.
+            for (const [key, value] of data.entries()) {
+                offlineSighting = {...offlineSighting, [key]: value};
+            }
+
+            // TODO: experiment with higher durability
+            db
+                .transaction("sightings", "readwrite")
+                .objectStore("sightings")
+                .add(offlineSighting).onsuccess = () => {
+                console.log("Added :)");
+            }
+        }
 
         // TODO: Redirect to details page on success
         // TODO: Handle errors
@@ -62,6 +99,15 @@
         {/if}
         <input type="submit">
     </form>
+    {#await data.sightings}
+        <label>Loading offline sightings...<progress></progress></label>
+    {:then sightings}
+        <div id="gallery">
+            {#each sightings as sighting}
+                <SightingPreview href="/ci609/sighting/{sighting.id}" {...sighting} />
+            {/each}
+        </div>
+    {/await}
 </main>
 
 <style>
