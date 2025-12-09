@@ -1,6 +1,7 @@
 <script>
     import { dbPromise } from "$lib/db.js"
     import { goto } from "$app/navigation";
+    import BlueButton from "$lib/components/BlueButton.svelte";
 
     let { data } = $props();
 
@@ -91,7 +92,7 @@
         <label for="notes">Additional details, such as the type of fence or road. (optional):</label>
         <textarea id="notes" name="notes"></textarea>
         <label for="location">Location:</label>
-        <button type="button" id="location" onclick={getGeolocation}>Provide location</button>
+        <BlueButton type="button" id="location" onclick={getGeolocation}>Provide location</BlueButton>
         {#if positionError}
             <!-- TODO: Geolocation error handling could be better. -->
             <p>{positionError}</p>
@@ -128,19 +129,5 @@
         min-height: 9rem;
         resize: vertical;
         padding: 0.5rem;
-    }
-
-    button {
-        border-radius: 0.5rem;
-        border: 1px solid var(--surface-1);
-        background-color: var(--blue);
-        color: whitesmoke;
-        padding: 0.5rem;
-    }
-
-    button:hover {
-        cursor: pointer;
-        background-color: var(--blue-hover);
-        color: #fff;
     }
 </style>
