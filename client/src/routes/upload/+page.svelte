@@ -1,5 +1,6 @@
 <script>
     import { dbPromise } from "$lib/db.js"
+    import { goto } from "$app/navigation";
 
     let { data } = $props();
 
@@ -26,20 +27,43 @@
 
         // TODO: experiment with higher durability
         const db = await dbPromise;
-        db
+        const objectStore = db
             .transaction("sightings", "readwrite")
-            .objectStore("sightings")
-            .add(offlineSighting).onsuccess = () => {
-            console.info("Added offline sighting. :)");
-        }
+            .objectStore("sightings");
+        const localIDPromise = new Promise((resolve) => {
+            const idbRequest = objectStore.add(offlineSighting);
 
-        // TODO: Redirect to details page on success
-        // TODO: Handle errors
-        // TODO: Save to storage if offline
-        const response = await fetch(event.currentTarget.action, {
-            method: 'POST',
-            body: data
+            idbRequest.onsuccess = () => {
+                console.info(`Added offline sighting with key: ${idbRequest.result}. :)`);
+                // Return the local ID of the offline pangolin sighting.
+                resolve(idbRequest.result);
+            }
         });
+
+        try {
+            const response = await fetch(event.currentTarget.action, {
+                method: 'POST',
+                body: data
+            });
+
+            if (response.ok) {
+                // If the pangolin sighting upload was successful, we have no need for the offline sighting anymore, so
+                // we can delete it from IndexedDB.
+                const localID = await localIDPromise;
+                console.info(`Removing offline sighting with key: ${localID}. :)`);
+                await new Promise((resolve) => {
+                    const idbRequest = objectStore.delete(localID);
+                    idbRequest.onsuccess = resolve;
+                });
+
+                const { id } = await response.json();
+                await goto(`/ci609/sighting/${id}`);
+            }
+        } catch (error) {
+            // TODO: handle non-offline errors separately.
+            console.log(error.message);
+            await goto('/ci609/offline');
+        }
     }
 </script>
 
