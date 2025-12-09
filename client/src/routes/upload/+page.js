@@ -14,6 +14,7 @@ export async function load() {
                 sightings.push({
                     id: cursor.key,
                     image: URL.createObjectURL(cursor.value.image),
+                    deathType: cursor.value.deathType,
                     time: Number(cursor.value.time),
                 });
                 cursor.continue();
