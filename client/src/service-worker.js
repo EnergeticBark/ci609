@@ -66,7 +66,11 @@ self.addEventListener('fetch', (event) => {
         // This behavior is similar to a NavigationRoute if I had used Workbox.
         // See: https://developer.chrome.com/docs/workbox/modules/workbox-routing#how_to_register_a_navigation_route
         if (event.request.mode === 'navigate') {
-            return await cache.match(`${base}/`);
+            const response = await cache.match(`${base}/`);
+
+            if (response) {
+                return response;
+            }
         }
 
         // Fall back to the network
