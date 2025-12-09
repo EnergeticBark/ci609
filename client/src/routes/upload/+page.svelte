@@ -27,11 +27,11 @@
 
         // TODO: experiment with higher durability
         const db = await dbPromise;
-        const objectStore = db
-            .transaction("sightings", "readwrite")
-            .objectStore("sightings");
         const localIDPromise = new Promise((resolve) => {
-            const idbRequest = objectStore.add(offlineSighting);
+            const idbRequest = db
+                .transaction("sightings", "readwrite")
+                .objectStore("sightings")
+                .add(offlineSighting);
 
             idbRequest.onsuccess = () => {
                 console.info(`Added offline sighting with key: ${idbRequest.result}. :)`);
@@ -52,7 +52,10 @@
                 const localID = await localIDPromise;
                 console.info(`Removing offline sighting with key: ${localID}. :)`);
                 await new Promise((resolve) => {
-                    const idbRequest = objectStore.delete(localID);
+                    const idbRequest = db
+                        .transaction("sightings", "readwrite")
+                        .objectStore("sightings")
+                        .delete(localID);
                     idbRequest.onsuccess = resolve;
                 });
 
