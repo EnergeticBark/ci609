@@ -1,18 +1,9 @@
 <script>
+    import StatusMessage from "$lib/components/StatusMessage.svelte";
+
     let { href, image, deathType, time } = $props();
 
-    let statusMessage = $derived.by(() => {
-        switch(deathType) {
-            case "fence":
-                return "Caught on fence";
-            case "fenceElectrocuted":
-                return "Electrocuted on fence";
-            case "road":
-                return "Killed on road";
-            default:
-                return "Alive";
-        }
-    });
+    let timestamp = $derived(new Date(time).toLocaleDateString());
 </script>
 
 <article>
@@ -20,8 +11,8 @@
         <div>
             <img src={image} alt="" loading="lazy">
         </div>
-        <h3>{statusMessage}</h3>
-        <p>{time}</p>
+        <h3><StatusMessage {deathType} /></h3>
+        <p>Seen: {timestamp}</p>
     </a>
 </article>
 

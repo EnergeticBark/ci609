@@ -1,12 +1,13 @@
 <script>
-    let props = $props()
+    const { children, ...props } = $props();
 </script>
 
-<a {...props}>Upload new sightings</a>
+<button {...props}>
+    {@render children()}
+</button>
 
 <style>
-    a {
-        text-decoration: none;
+    button {
         border-radius: 0.5rem;
         border: 1px solid var(--surface-1);
         background-color: var(--blue);
@@ -14,7 +15,8 @@
         padding: 0.5rem;
     }
 
-    a:hover {
+    button:hover {
+        cursor: pointer;
         background-color: var(--blue-hover);
         color: #fff;
     }

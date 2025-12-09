@@ -24,6 +24,7 @@ html {
     --text: #4c4f69;
     --sub-text-0: #6c6f85;
     --sub-text-1: #5c5f77;
+    --overlay-0: #9ca0b0;
 }
 
 /* Sections */
@@ -44,7 +45,7 @@ body {
     width: 100%;
     min-height: 100%;
     display: grid;
-    grid-template-rows: auto 1fr auto;
+    grid-template-rows: auto auto 1fr auto;
 }
 
 header {
@@ -72,31 +73,8 @@ label {
     color: var(--sub-text-1);
 }
 
-/* Form elements */
-#query {
-    padding: 0.5rem;
-    border-radius: 0.5rem;
-    border: 1px solid var(--surface-1);
-    background-color:  var(--base);
-    color: var(--text);
-}
-
 #loading-indicator {
     margin: 1rem 0;
-}
-
-/* Form grid layout */
-label { grid-area: label; }
-#query { grid-area: query; }
-button { grid-area: button; }
-
-form {
-    display: grid;
-    grid-gap: 0.5rem;
-    grid-auto-columns: 1fr auto;
-    grid-template-areas:
-            "label ."
-            "query button";
 }
 
 /* Gallery grid layout */

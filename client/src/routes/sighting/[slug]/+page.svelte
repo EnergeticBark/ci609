@@ -1,20 +1,8 @@
 <script>
     import LeafletMap from "$lib/components/LeafletMap.svelte";
+    import StatusMessage from "$lib/components/StatusMessage.svelte";
 
     let { data } = $props();
-
-    let statusMessage = $derived.by(() => {
-        switch(data.deathType) {
-            case "fence":
-                return "Caught on fence";
-            case "fenceElectrocuted":
-                return "Electrocuted on fence";
-            case "road":
-                return "Killed on road";
-            default:
-                return "Alive";
-        }
-    });
 </script>
 
 <main>
@@ -25,7 +13,7 @@
         {:then sighting}
             <picture><img src={sighting.image} alt=""></picture>
             <h3>Status</h3>
-            <p>{statusMessage}</p>
+            <p><StatusMessage deathType={sighting.deathType} /></p>
             <h3>Time of sighting</h3>
             <time datetime={sighting.time}>{sighting.time}</time>
             <h3>Location</h3>
@@ -42,6 +30,7 @@
 
 <style>
     img {
+        background-color: var(--base);
         max-height: 50vh;
         width: 100%;
         height: auto;

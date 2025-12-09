@@ -11,7 +11,7 @@ class Sightings extends Endpoint {
     private function handleGet(): void
     {
         $sth = $this->dbh->prepare(<<<'SQL'
-        SELECT id, image, deathType, time
+        SELECT id, image, deathType, UNIX_TIMESTAMP(time) * 1000 as time
         FROM sighting
         SQL);
         $sth->execute();
@@ -47,13 +47,18 @@ class Sightings extends Endpoint {
             throw new BadRequest('Image has invalid MIME');
         }
 
-        $uploadDestination = 'uploads/hi.jpg';
+        $fileName = uniqid();
+        $uploadDestination = "uploads/$fileName.jpg";
         if (!move_uploaded_file($tmpName, $uploadDestination)) {
             throw new BadRequest('Failed to move tmp image to destination');
         }
         $imageUrl = 'https://bsh23.brighton.domains/ci609/api/' . $uploadDestination;
 
-        function deathTypeFilter(string $value): string|false {
+        function deathTypeFilter(string $value): string|null|false {
+            if ($value === "") {
+                return null;
+            }
+
             $validDeathTypes = ['fence', 'fenceElectrocuted', 'road', 'other'];
             if (in_array($value, $validDeathTypes, true)) {
                 return $value;
@@ -69,12 +74,20 @@ class Sightings extends Endpoint {
         $longitude = filter_input(INPUT_POST, 'longitude', FILTER_VALIDATE_FLOAT);
         $accuracy = filter_input(INPUT_POST, 'accuracy', FILTER_VALIDATE_FLOAT);
 
-        function notesFilter(string $value): string|false {
+        function notesFilter(string $value): string|null|false {
+            if ($value === "") {
+                return null;
+            }
+
             // Our database stores notes in a VARCHAR(10000), which measures length in character units rather than
             // bytes. Source: https://dev.mysql.com/doc/refman/8.0/en/string-type-syntax.html
             // That's why we measure the length with mb_strlen() instead of strlen().
             $length = mb_strlen($value, 'UTF-8');
-            return $length > 0 && $length < 10000;
+
+            if ($length < 10000) {
+                return $value;
+            }
+            return false;
         }
         $notes = filter_input(INPUT_POST, 'notes', FILTER_CALLBACK, ['options' => notesFilter(...)]);
 

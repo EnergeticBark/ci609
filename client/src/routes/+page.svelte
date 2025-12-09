@@ -5,10 +5,10 @@
 </script>
 
 <main>
+    <h2>Pangolin sightings</h2>
     {#await data.sightings}
         <label>Loading pangolin sightings...<progress></progress></label>
     {:then sightings}
-        <h2>Pangolin sightings</h2>
         <div id="gallery">
             {#each sightings as sighting}
                 <SightingPreview href="/ci609/sighting/{sighting.id}" {...sighting} />
