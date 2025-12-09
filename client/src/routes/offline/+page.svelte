@@ -65,7 +65,7 @@
 
         for (const [localID, sighting] of Object.entries(sightings)) {
             const formData = sightingToFormData(sighting);
-            await uploadAndDelete(localID, formData);
+            await uploadAndDelete(formData, localID);
         }
     }
 
