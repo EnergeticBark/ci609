@@ -65,7 +65,7 @@
         <label for="notes">Additional details, such as the type of fence or road. (optional):</label>
         <textarea id="notes" name="notes"></textarea>
         <label for="location">Location:</label>
-        <button id="location" onclick={getGeolocation}>Provide location</button>
+        <button type="button" id="location" onclick={getGeolocation}>Provide location</button>
         {#if positionError}
             <!-- TODO: Geolocation error handling could be better. -->
             <p>{positionError}</p>
