@@ -1,4 +1,5 @@
 <script>
+    import { dbPromise } from "$lib/db.js"
     import SightingPreview from "$lib/components/SightingPreview.svelte";
 
     let { data } = $props();
@@ -18,37 +19,19 @@
         event.preventDefault();
         const data = new FormData(event.currentTarget);
 
-        const request = window.indexedDB.open("ZapApp", 5);
-        request.onerror = (event) => {
-            console.error("Why didn't you allow my web app to use IndexedDB?!");
+        let offlineSighting;
+        // FormData doesn't support cloning, so take each key/val pair one-by-one.
+        for (const [key, value] of data.entries()) {
+            offlineSighting = {...offlineSighting, [key]: value};
         }
 
-        request.onupgradeneeded = (event) => {
-            const db = event.target.result;
-
-            const objectStore = db.createObjectStore("sightings", { autoIncrement: true });
-        }
-
-        request.onsuccess = (event) => {
-            const db = event.target.result;
-
-            db.onerror = (event) => {
-                console.error(event.target.error?.message);
-            };
-
-            let offlineSighting;
-            // FormData doesn't support cloning, so take each key/val pair one-by-one.
-            for (const [key, value] of data.entries()) {
-                offlineSighting = {...offlineSighting, [key]: value};
-            }
-
-            // TODO: experiment with higher durability
-            db
-                .transaction("sightings", "readwrite")
-                .objectStore("sightings")
-                .add(offlineSighting).onsuccess = () => {
-                console.log("Added :)");
-            }
+        // TODO: experiment with higher durability
+        const db = await dbPromise;
+        db
+            .transaction("sightings", "readwrite")
+            .objectStore("sightings")
+            .add(offlineSighting).onsuccess = () => {
+            console.info("Added offline sighting. :)");
         }
 
         // TODO: Redirect to details page on success
