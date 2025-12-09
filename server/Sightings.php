@@ -47,7 +47,8 @@ class Sightings extends Endpoint {
             throw new BadRequest('Image has invalid MIME');
         }
 
-        $uploadDestination = 'uploads/hi.jpg';
+        $fileName = uniqid();
+        $uploadDestination = "uploads/$fileName.jpg";
         if (!move_uploaded_file($tmpName, $uploadDestination)) {
             throw new BadRequest('Failed to move tmp image to destination');
         }
