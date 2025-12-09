@@ -11,11 +11,10 @@ export async function load() {
             .openCursor(null, "prev").onsuccess = (event) => {
             const cursor = event.target.result;
             if (cursor) {
-                const imageURL = URL.createObjectURL(cursor.value.image);
                 sightings.push({
                     id: cursor.key,
-                    ...cursor.value,
-                    image: imageURL,
+                    image: URL.createObjectURL(cursor.value.image),
+                    time: Number(cursor.value.time),
                 });
                 cursor.continue();
             } else {

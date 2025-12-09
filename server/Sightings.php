@@ -11,7 +11,7 @@ class Sightings extends Endpoint {
     private function handleGet(): void
     {
         $sth = $this->dbh->prepare(<<<'SQL'
-        SELECT id, image, deathType, time
+        SELECT id, image, deathType, UNIX_TIMESTAMP(time) * 1000 as time
         FROM sighting
         SQL);
         $sth->execute();

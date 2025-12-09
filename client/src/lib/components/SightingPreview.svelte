@@ -13,6 +13,8 @@
                 return "Alive";
         }
     });
+
+    let timestamp = $derived(new Date(time).toLocaleDateString());
 </script>
 
 <article>
@@ -21,7 +23,7 @@
             <img src={image} alt="" loading="lazy">
         </div>
         <h3>{statusMessage}</h3>
-        <p>{time}</p>
+        <p>Seen: {timestamp}</p>
     </a>
 </article>
 
