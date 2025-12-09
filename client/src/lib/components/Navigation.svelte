@@ -4,6 +4,7 @@
 <nav>
     <ul>
         <li><a href="/ci609/">Sightings List</a></li>
+        <li><a href="/ci609/offline">Pending Uploads</a></li>
         <li><a href="/ci609/upload">Upload</a></li>
     </ul>
 </nav>

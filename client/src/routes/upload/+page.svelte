@@ -1,6 +1,5 @@
 <script>
     import { dbPromise } from "$lib/db.js"
-    import SightingPreview from "$lib/components/SightingPreview.svelte";
 
     let { data } = $props();
 
@@ -82,15 +81,6 @@
         {/if}
         <input type="submit">
     </form>
-    {#await data.sightings}
-        <label>Loading offline sightings...<progress></progress></label>
-    {:then sightings}
-        <div id="gallery">
-            {#each sightings as sighting}
-                <SightingPreview href="/ci609/sighting/{sighting.id}" {...sighting} />
-            {/each}
-        </div>
-    {/await}
 </main>
 
 <style>
