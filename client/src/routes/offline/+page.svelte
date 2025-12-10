@@ -14,9 +14,9 @@
 
     // Upload the sighting to the API.
     async function upload(formData) {
-        return fetch('https://bsh23.brighton.domains/ci609/api/sightings', {
-            method: 'POST',
-            body: formData
+        return fetch("https://bsh23.brighton.domains/ci609/api/sightings", {
+            method: "POST",
+            body: formData,
         });
     }
 
@@ -55,7 +55,7 @@
                 .openCursor().onsuccess = (event) => {
                 const cursor = event.target.result;
                 if (cursor) {
-                    sightings = {...sightings, [cursor.key]: cursor.value};
+                    sightings = { ...sightings, [cursor.key]: cursor.value };
                     cursor.continue();
                 } else {
                     resolve(sightings);
@@ -76,7 +76,8 @@
     <h2>Your offline pangolin sightings</h2>
     <BlueButton type="button" onclick={handleUploadAll}>Upload All</BlueButton>
     {#await data.sightings}
-        <label>Loading offline pangolin sightings...<progress></progress></label>
+        <label>Loading offline pangolin sightings...<progress></progress></label
+        >
     {:then sightings}
         <div id="gallery">
             {#each sightings as sighting}

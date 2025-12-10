@@ -8,16 +8,17 @@
         return (node) => {
             let map = L.map(node).setView([latitude, longitude], 16);
 
-            L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
                 maxZoom: 19,
-                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+                attribution:
+                    '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
             }).addTo(map);
 
-            let sightingRange = L.circle([latitude, longitude], {
-                color: 'red',
-                fillColor: '#f03',
+            L.circle([latitude, longitude], {
+                color: "red",
+                fillColor: "#f03",
                 fillOpacity: 0.5,
-                radius: accuracy
+                radius: accuracy,
             }).addTo(map);
 
             // Teardown function

@@ -34,6 +34,6 @@
     }
     li a:hover {
         background-color: var(--overlay-0);
-        color: #FFF;
+        color: #fff;
     }
 </style>
