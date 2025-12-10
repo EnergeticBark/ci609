@@ -14,5 +14,7 @@
                 <SightingPreview href="/ci609/sighting/{sighting.id}" {...sighting} />
             {/each}
         </div>
+    {:catch error}
+        <p>{error.message}</p>
     {/await}
 </main>
