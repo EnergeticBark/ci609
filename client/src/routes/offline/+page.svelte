@@ -1,5 +1,5 @@
 <script>
-    import {goto} from "$app/navigation";
+    import { goto } from "$app/navigation";
     import { dbPromise } from "$lib/db.js";
     import SightingPreview from "$lib/components/SightingPreview.svelte";
     import BlueButton from "$lib/components/BlueButton.svelte";
@@ -81,7 +81,9 @@
         <label>Loading offline pangolin sightings...<progress></progress></label
         >
     {:then sightings}
-        <BlueButton type="button" onclick={handleUploadAll}>Upload All</BlueButton>
+        <BlueButton type="button" onclick={handleUploadAll}
+            >Upload All</BlueButton
+        >
         <div id="gallery">
             {#each sightings as sighting}
                 <SightingPreview href="#" {...sighting} />

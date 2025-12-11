@@ -2,19 +2,12 @@
     import { goto } from "$app/navigation";
     import { dbPromise } from "$lib/db.js";
     import BlueButton from "$lib/components/BlueButton.svelte";
+    import FileLimitedSize from "$lib/components/FileLimitedSize.svelte";
 
     let { data } = $props();
 
     let position = $state.raw(null);
     let positionError = $state("");
-
-    function getGeolocation() {
-        navigator.geolocation.getCurrentPosition(
-            (currentPosition) => (position = currentPosition),
-            (error) => (positionError = error.message),
-            { enableHighAccuracy: true },
-        );
-    }
 
     async function handleSubmit(event) {
         event.preventDefault();
@@ -73,6 +66,14 @@
             await goto("/ci609/offline");
         }
     }
+
+    function getGeolocation() {
+        navigator.geolocation.getCurrentPosition(
+            (currentPosition) => (position = currentPosition),
+            (error) => (positionError = error.message),
+            { enableHighAccuracy: true },
+        );
+    }
 </script>
 
 <main>
@@ -85,13 +86,14 @@
         <label for="image">Image:</label>
         <!-- On all major mobile browsers capture="environment" will prompt the user to take a photo. -->
         <!-- See: https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Attributes/capture -->
-        <input
+        <FileLimitedSize
             type="file"
             id="image"
             name="image"
             accept="image/png, image/jpeg"
             capture="environment"
             required
+            maxsize="10"
         />
         <label for="status">Pangolin status:</label>
         <select id="status" name="deathType">
@@ -105,7 +107,7 @@
             </optgroup>
         </select>
         <label for="notes"
-            >Additional details, such as the type of fence or road. (optional):</label
+            >Additional details, such as the type of fence or road (optional):</label
         >
         <textarea id="notes" name="notes"></textarea>
         <label for="location">Location:</label>
