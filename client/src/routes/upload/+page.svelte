@@ -109,7 +109,7 @@
         <label for="notes"
             >Additional details, such as the type of fence or road (optional):</label
         >
-        <textarea id="notes" name="notes"></textarea>
+        <textarea id="notes" name="notes" maxlength="10000"></textarea>
         <label for="location">Location:</label>
         <BlueButton type="button" id="location" onclick={getGeolocation}
             >Provide location</BlueButton
