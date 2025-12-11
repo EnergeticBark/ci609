@@ -31,6 +31,8 @@
                 <h3>Notes</h3>
                 <p class="description">{sighting.notes}</p>
             {/if}
+        {:catch error}
+            <p>{error.message}</p>
         {/await}
     </article>
 </main>

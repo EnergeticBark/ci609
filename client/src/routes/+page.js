@@ -10,10 +10,10 @@ export async function load({ fetch }) {
                 throw new Error("There are no pangolin sightings yet.");
             }
 
-            return await response.json();
+            return response.json();
         } catch (error) {
             // The fetch() method throws a type error for network errors.
-            if (error instanceof TypeError) {
+            if (error instanceof TypeError && !navigator.onLine) {
                 throw new Error(
                     "You're offline, but you can save sightings to upload later.",
                 );
