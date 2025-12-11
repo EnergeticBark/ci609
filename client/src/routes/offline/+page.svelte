@@ -4,6 +4,8 @@
     import SightingPreview from "$lib/components/SightingPreview.svelte";
     import BlueButton from "$lib/components/BlueButton.svelte";
 
+    let uploading = $state(false);
+
     // Convert the sighting object from IndexedDB back into a FormData.
     function sightingToFormData(sighting) {
         const formData = new FormData();
@@ -47,6 +49,13 @@
     }
 
     async function handleUploadAll() {
+        // Ignore the click if we're already uploading.
+        if (uploading) {
+            return;
+        }
+
+        uploading = true;
+
         const db = await dbPromise;
         const sightings = await new Promise((resolve) => {
             let sightings;
@@ -84,6 +93,9 @@
         <BlueButton type="button" onclick={handleUploadAll}
             >Upload All</BlueButton
         >
+        {#if uploading}
+            <label>Uploading...<progress></progress></label>
+        {/if}
         <div id="gallery">
             {#each sightings as sighting}
                 <SightingPreview href="#" {...sighting} />
