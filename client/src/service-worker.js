@@ -42,6 +42,8 @@ self.addEventListener("activate", (event) => {
         for (const key of await caches.keys()) {
             if (key !== CACHE) await caches.delete(key);
         }
+        // Start using this service worker now instead of on the next reload.
+        return clients.claim();
     }
 
     event.waitUntil(deleteOldCaches());
