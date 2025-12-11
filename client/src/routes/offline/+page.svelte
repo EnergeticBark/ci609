@@ -74,15 +74,17 @@
 
 <main>
     <h2>Your offline pangolin sightings</h2>
-    <BlueButton type="button" onclick={handleUploadAll}>Upload All</BlueButton>
     {#await data.sightings}
         <label>Loading offline pangolin sightings...<progress></progress></label
         >
     {:then sightings}
+        <BlueButton type="button" onclick={handleUploadAll}>Upload All</BlueButton>
         <div id="gallery">
             {#each sightings as sighting}
                 <SightingPreview href="#" {...sighting} />
             {/each}
         </div>
+    {:catch error}
+        <p>{error.message}</p>
     {/await}
 </main>

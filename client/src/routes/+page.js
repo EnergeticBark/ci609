@@ -7,7 +7,7 @@ export async function load({ fetch }) {
                 "https://bsh23.brighton.domains/ci609/api/sightings",
             );
             if (response.status === 204) {
-                throw new Error("There are no pangolin sightings yet.");
+                throw new Error("No pangolin sightings yet.");
             }
 
             return response.json();
