@@ -1,6 +1,6 @@
 <script>
-    import { dbPromise } from "$lib/db.js";
     import { goto } from "$app/navigation";
+    import { dbPromise } from "$lib/db.js";
     import BlueButton from "$lib/components/BlueButton.svelte";
 
     let { data } = $props();
@@ -69,7 +69,7 @@
             }
         } catch (error) {
             // TODO: handle non-offline errors separately.
-            console.log(error.message);
+            console.error(error.message);
             await goto("/ci609/offline");
         }
     }

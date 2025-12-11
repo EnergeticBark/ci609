@@ -1,7 +1,8 @@
 <script>
+    import {goto} from "$app/navigation";
+    import { dbPromise } from "$lib/db.js";
     import SightingPreview from "$lib/components/SightingPreview.svelte";
     import BlueButton from "$lib/components/BlueButton.svelte";
-    import { dbPromise } from "$lib/db.js";
 
     // Convert the sighting object from IndexedDB back into a FormData.
     function sightingToFormData(sighting) {
@@ -67,6 +68,8 @@
             const formData = sightingToFormData(sighting);
             await uploadAndDelete(formData, localID);
         }
+
+        await goto("/ci609/");
     }
 
     let { data } = $props();
