@@ -10,10 +10,12 @@
 // Only necessary if you have an import from `$env/static/public`
 /// <reference types="../.svelte-kit/ambient.d.ts" />
 
-import { base, build, files, version } from '$service-worker';
+import { base, build, files, version } from "$service-worker";
 
 // This gives `self` the correct types
-const self = /** @type {ServiceWorkerGlobalScope} */ (/** @type {unknown} */ (globalThis.self));
+const self = /** @type {ServiceWorkerGlobalScope} */ (
+    /** @type {unknown} */ (globalThis.self)
+);
 
 // Create a unique cache name for this deployment
 const CACHE = `cache-${version}`;
@@ -21,33 +23,35 @@ const CACHE = `cache-${version}`;
 const ASSETS = [
     `${base}/`,
     ...build, // the app itself
-    ...files  // everything in `static`
+    ...files, // everything in `static`
 ];
 
-self.addEventListener('install', (event) => {
+self.addEventListener("install", (event) => {
     // Create a new cache and add all files to it
     async function addFilesToCache() {
         const cache = await caches.open(CACHE);
-        await cache.addAll(ASSETS);
+        return cache.addAll(ASSETS);
     }
 
     event.waitUntil(addFilesToCache());
 });
 
-self.addEventListener('activate', (event) => {
+self.addEventListener("activate", (event) => {
     // Remove previous cached data from disk
     async function deleteOldCaches() {
         for (const key of await caches.keys()) {
             if (key !== CACHE) await caches.delete(key);
         }
+        // Start using this service worker now instead of on the next reload.
+        return clients.claim();
     }
 
     event.waitUntil(deleteOldCaches());
 });
 
-self.addEventListener('fetch', (event) => {
+self.addEventListener("fetch", (event) => {
     // Ignore non-GET requests
-    if (event.request.method !== 'GET') return;
+    if (event.request.method !== "GET") return;
 
     async function respond() {
         const url = new URL(event.request.url);
@@ -65,7 +69,7 @@ self.addEventListener('fetch', (event) => {
         // Respond to all navigate requests with our app's root
         // This behavior is similar to a NavigationRoute if I had used Workbox.
         // See: https://developer.chrome.com/docs/workbox/modules/workbox-routing#how_to_register_a_navigation_route
-        if (event.request.mode === 'navigate') {
+        if (event.request.mode === "navigate") {
             const response = await cache.match(`${base}/`);
 
             if (response) {

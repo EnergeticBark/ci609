@@ -9,7 +9,7 @@
 <article>
     <a {href}>
         <div>
-            <img src={image} alt="" loading="lazy">
+            <img src={image} alt="" loading="lazy" />
         </div>
         <h3><StatusMessage {deathType} /></h3>
         <p>Seen: {timestamp}</p>
@@ -89,12 +89,18 @@
         grid-template-rows: subgrid;
         grid-row: span 3;
         grid-template-areas:
-        "image image"
-        "title title"
-        ".     time";
+            "image image"
+            "title title"
+            ".     time";
     }
 
-    article div { grid-area: image; }
-    article h3 { grid-area: title; }
-    article p { grid-area: time; }
+    article div {
+        grid-area: image;
+    }
+    article h3 {
+        grid-area: title;
+    }
+    article p {
+        grid-area: time;
+    }
 </style>

@@ -5,7 +5,7 @@
     <ul>
         <li><a href="/ci609/">Online Sightings</a></li>
         <li><a href="/ci609/offline">Offline Sightings</a></li>
-        <li><a href="/ci609/upload">Upload</a></li>
+        <li><a href="/ci609/record">Record</a></li>
     </ul>
 </nav>
 
@@ -34,6 +34,6 @@
     }
     li a:hover {
         background-color: var(--overlay-0);
-        color: #FFF;
+        color: #fff;
     }
 </style>

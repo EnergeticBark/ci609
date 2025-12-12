@@ -3,7 +3,7 @@ import { dbPromise } from "$lib/db.js";
 /** @type {import('./$types').PageLoad} */
 export async function load() {
     const db = await dbPromise;
-    const sightings = new Promise((resolve) => {
+    const sightings = new Promise((resolve, reject) => {
         const sightings = [];
         db
             .transaction("sightings", "readonly")
@@ -19,6 +19,10 @@ export async function load() {
                 });
                 cursor.continue();
             } else {
+                if (sightings.length === 0) {
+                    reject(new Error("No offline pangolin sightings yet."));
+                }
+
                 resolve(sightings);
             }
         };

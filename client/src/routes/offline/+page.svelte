@@ -1,7 +1,10 @@
 <script>
+    import { goto } from "$app/navigation";
+    import { dbPromise } from "$lib/db.js";
     import SightingPreview from "$lib/components/SightingPreview.svelte";
     import BlueButton from "$lib/components/BlueButton.svelte";
-    import { dbPromise } from "$lib/db.js";
+
+    let uploading = $state(false);
 
     // Convert the sighting object from IndexedDB back into a FormData.
     function sightingToFormData(sighting) {
@@ -14,9 +17,9 @@
 
     // Upload the sighting to the API.
     async function upload(formData) {
-        return fetch('https://bsh23.brighton.domains/ci609/api/sightings', {
-            method: 'POST',
-            body: formData
+        return fetch("https://bsh23.brighton.domains/ci609/api/sightings", {
+            method: "POST",
+            body: formData,
         });
     }
 
@@ -46,6 +49,13 @@
     }
 
     async function handleUploadAll() {
+        // Ignore the click if we're already uploading.
+        if (uploading) {
+            return;
+        }
+
+        uploading = true;
+
         const db = await dbPromise;
         const sightings = await new Promise((resolve) => {
             let sightings;
@@ -55,7 +65,7 @@
                 .openCursor().onsuccess = (event) => {
                 const cursor = event.target.result;
                 if (cursor) {
-                    sightings = {...sightings, [cursor.key]: cursor.value};
+                    sightings = { ...sightings, [cursor.key]: cursor.value };
                     cursor.continue();
                 } else {
                     resolve(sightings);
@@ -67,6 +77,8 @@
             const formData = sightingToFormData(sighting);
             await uploadAndDelete(formData, localID);
         }
+
+        await goto("/ci609/");
     }
 
     let { data } = $props();
@@ -74,14 +86,22 @@
 
 <main>
     <h2>Your offline pangolin sightings</h2>
-    <BlueButton type="button" onclick={handleUploadAll}>Upload All</BlueButton>
     {#await data.sightings}
-        <label>Loading offline pangolin sightings...<progress></progress></label>
+        <label>Loading offline pangolin sightings...<progress></progress></label
+        >
     {:then sightings}
+        <BlueButton type="button" onclick={handleUploadAll}
+            >Upload All</BlueButton
+        >
+        {#if uploading}
+            <label>Uploading...<progress></progress></label>
+        {/if}
         <div id="gallery">
             {#each sightings as sighting}
                 <SightingPreview href="#" {...sighting} />
             {/each}
         </div>
+    {:catch error}
+        <p>{error.message}</p>
     {/await}
 </main>

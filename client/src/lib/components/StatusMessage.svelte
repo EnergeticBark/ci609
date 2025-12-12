@@ -2,7 +2,7 @@
     let { deathType } = $props();
 
     let statusMessage = $derived.by(() => {
-        switch(deathType) {
+        switch (deathType) {
             case "fence":
                 return "Caught on fence";
             case "fenceElectrocuted":

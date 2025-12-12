@@ -1,15 +1,15 @@
-import adapter from '@sveltejs/adapter-static';
+import adapter from "@sveltejs/adapter-static";
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
-	kit: {
+    kit: {
         adapter: adapter({
-            fallback: 'index.html'
+            fallback: "index.html",
         }),
         paths: {
-            base: '/ci609'
-        }
-	}
+            base: "/ci609",
+        },
+    },
 };
 
 export default config;

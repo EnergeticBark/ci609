@@ -1,16 +1,16 @@
 <script>
-    import favicon from '$lib/assets/favicon.svg';
+    import favicon from "$lib/assets/favicon.svg";
 
-    import 'modern-normalize';
-    import '$lib/assets/shared.css';
+    import "modern-normalize";
+    import "$lib/assets/shared.css";
     import Navigation from "$lib/components/Navigation.svelte";
 
-	let { children } = $props();
+    let { children } = $props();
 </script>
 
 <svelte:head>
     <link rel="manifest" href="manifest.json" />
-	<link rel="icon" href={favicon} />
+    <link rel="icon" href={favicon} />
 </svelte:head>
 
 <header>
