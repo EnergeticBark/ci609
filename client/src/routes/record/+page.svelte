@@ -97,7 +97,7 @@
                     <option value="road">Killed on road</option>
                 </optgroup>
             </select>
-            <label for="notes">Additional details, such as the type of fence or road:</label>
+            <label for="notes">Additional details, such as fence/road type:</label>
             <textarea id="notes" name="notes" maxlength="10000"></textarea>
         </fieldset>
         <fieldset>
