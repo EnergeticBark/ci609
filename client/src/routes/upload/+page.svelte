@@ -2,7 +2,7 @@
     import { goto } from "$app/navigation";
     import { dbPromise } from "$lib/db.js";
     import FileLimitedSize from "$lib/components/FileLimitedSize.svelte";
-    import GeolocationCheckbox from "$lib/components/GeolocationCheckbox.svelte";
+    import GeolocationInput from "$lib/components/GeolocationInput.svelte";
 
     let { data } = $props();
 
@@ -99,7 +99,7 @@
             >Additional details, such as the type of fence or road (optional):</label
         >
         <textarea id="notes" name="notes" maxlength="10000"></textarea>
-        <label>Location: <GeolocationCheckbox required /></label>
+        <GeolocationInput required />
         <input type="submit" />
     </form>
 </main>
