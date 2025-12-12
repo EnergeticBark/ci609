@@ -16,7 +16,14 @@ class SightingByID extends Endpoint {
         }
 
         $sth = $this->dbh->prepare(<<<'SQL'
-        SELECT id, image, deathType, time, ST_Latitude(location) as latitude, ST_Longitude(location) as longitude, accuracy, notes
+        SELECT id,
+               image,
+               deathType,
+               UNIX_TIMESTAMP(time) * 1000 as time,
+               ST_Latitude(location) as latitude,
+               ST_Longitude(location) as longitude,
+               accuracy,
+               notes
         FROM sighting
         WHERE id = ?
         SQL);
