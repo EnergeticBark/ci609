@@ -66,13 +66,13 @@
 </script>
 
 <main>
-    <h2>Add new sightings</h2>
+    <h2>Add new sighting</h2>
     <form
         action="https://bsh23.brighton.domains/ci609/api/sightings"
         method="POST"
         onsubmit={handleSubmit}
     >
-        <label for="image">Image:</label>
+        <label for="image">Image <em>(required)</em></label>
         <!-- On all major mobile browsers capture="environment" will prompt the user to take a photo. -->
         <!-- See: https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Attributes/capture -->
         <FileLimitedSize
@@ -84,7 +84,7 @@
             required
             maxsize="10"
         />
-        <label for="status">Pangolin status:</label>
+        <label for="status">Pangolin status</label>
         <select id="status" name="deathType">
             <optgroup label="Alive">
                 <option value="">Alive</option>
@@ -96,7 +96,7 @@
             </optgroup>
         </select>
         <label for="notes"
-            >Additional details, such as the type of fence or road (optional):</label
+            >Additional details, such as the type of fence or road:</label
         >
         <textarea id="notes" name="notes" maxlength="10000"></textarea>
         <GeolocationInput required />
@@ -117,6 +117,10 @@
         border: 1px solid var(--surface-1);
         background-color: var(--base);
         color: var(--text);
+    }
+
+    select {
+        height: 2.4rem;
     }
 
     #notes {
