@@ -1,13 +1,10 @@
 <script>
     import { goto } from "$app/navigation";
     import { dbPromise } from "$lib/db.js";
-    import BlueButton from "$lib/components/BlueButton.svelte";
     import FileLimitedSize from "$lib/components/FileLimitedSize.svelte";
+    import GeolocationCheckbox from "$lib/components/GeolocationCheckbox.svelte";
 
     let { data } = $props();
-
-    let position = $state.raw(null);
-    let positionError = $state("");
 
     async function handleSubmit(event) {
         event.preventDefault();
@@ -66,14 +63,6 @@
             await goto("/ci609/offline");
         }
     }
-
-    function getGeolocation() {
-        navigator.geolocation.getCurrentPosition(
-            (currentPosition) => (position = currentPosition),
-            (error) => (positionError = error.message),
-            { enableHighAccuracy: true },
-        );
-    }
 </script>
 
 <main>
@@ -110,36 +99,7 @@
             >Additional details, such as the type of fence or road (optional):</label
         >
         <textarea id="notes" name="notes" maxlength="10000"></textarea>
-        <label for="location">Location:</label>
-        <BlueButton type="button" id="location" onclick={getGeolocation}
-            >Provide location</BlueButton
-        >
-        {#if positionError}
-            <!-- TODO: Geolocation error handling could be better. -->
-            <p>{positionError}</p>
-        {/if}
-        {#if position}
-            <input
-                type="hidden"
-                name="latitude"
-                value={position.coords.latitude}
-            />
-            <input
-                type="hidden"
-                name="longitude"
-                value={position.coords.longitude}
-            />
-            <input
-                type="hidden"
-                name="accuracy"
-                value={position.coords.accuracy}
-            />
-            <input type="hidden" name="time" value={position.timestamp} />
-            <p>Latitude: {position.coords.latitude}</p>
-            <p>Longitude: {position.coords.longitude}</p>
-            <p>Accuracy: {position.coords.accuracy}</p>
-            <p>Time: {position.timestamp}</p>
-        {/if}
+        <label>Location: <GeolocationCheckbox required /></label>
         <input type="submit" />
     </form>
 </main>
