@@ -4,8 +4,6 @@
     import FileLimitedSize from "$lib/components/FileLimitedSize.svelte";
     import GeolocationInput from "$lib/components/GeolocationInput.svelte";
 
-    let { data } = $props();
-
     async function handleSubmit(event) {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
@@ -93,11 +91,15 @@
                 </optgroup>
                 <optgroup label="Dead">
                     <option value="fence">Caught on fence</option>
-                    <option value="fenceElectrocuted">Electrocuted on fence</option>
+                    <option value="fenceElectrocuted"
+                        >Electrocuted on fence</option
+                    >
                     <option value="road">Killed on road</option>
                 </optgroup>
             </select>
-            <label for="notes">Additional details, such as fence/road type:</label>
+            <label for="notes"
+                >Additional details, such as fence/road type:</label
+            >
             <textarea id="notes" name="notes" maxlength="10000"></textarea>
         </fieldset>
         <fieldset>
@@ -113,7 +115,7 @@
         display: flex;
         flex-direction: column;
         padding: 0.75rem 1rem 1rem;
-        border: 0.1rem solid #BCC0CC;
+        border: 0.1rem solid #bcc0cc;
         border-radius: 0.5rem;
         margin: 1rem 0;
     }
