@@ -13,6 +13,7 @@ class Sightings extends Endpoint {
         $sth = $this->dbh->prepare(<<<'SQL'
         SELECT id, image, deathType, UNIX_TIMESTAMP(time) * 1000 as time
         FROM sighting
+        ORDER BY time DESC
         SQL);
         $sth->execute();
         $result = $sth->fetchAll(PDO::FETCH_ASSOC);
