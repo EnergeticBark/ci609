@@ -2,7 +2,8 @@
     import StatusMessage from "$lib/components/StatusMessage.svelte";
     import LeafletMap from "$lib/components/LeafletMap.svelte";
 
-    let { image, deathType, time, latitude, longitude, accuracy, notes } = $props();
+    let { image, deathType, time, latitude, longitude, accuracy, notes } =
+        $props();
 
     const dateObject = $derived(new Date(time));
 
@@ -18,11 +19,7 @@
 <h3>Location</h3>
 <p>Coordinates: {latitude}&deg; N, {longitude}&deg; W</p>
 <p>Accuracy: {accuracy} meters</p>
-<LeafletMap
-    latitude={latitude}
-    longitude={longitude}
-    accuracy={accuracy}
-/>
+<LeafletMap {latitude} {longitude} {accuracy} />
 {#if notes}
     <h3>Notes</h3>
     <p class="description">{notes}</p>
