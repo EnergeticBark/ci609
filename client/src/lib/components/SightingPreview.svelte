@@ -3,7 +3,10 @@
 
     let { href, image, deathType, time } = $props();
 
-    let timestamp = $derived(new Date(time).toLocaleDateString());
+    const dateObject = $derived(new Date(time));
+
+    const datetime = $derived(dateObject.toISOString());
+    const timestamp = $derived(dateObject.toLocaleDateString());
 </script>
 
 <article>
@@ -12,7 +15,7 @@
             <img src={image} alt="" loading="lazy" />
         </div>
         <h3><StatusMessage {deathType} /></h3>
-        <p>Seen: {timestamp}</p>
+        <p>Seen: <time {datetime}>{timestamp}</time></p>
     </a>
 </article>
 
