@@ -35,6 +35,7 @@ body {
 
 body {
     font-family: Helvetica, Arial, serif;
+    line-height: 1.25;
     display: flex;
     justify-content: center;
     background-color: var(--crust);

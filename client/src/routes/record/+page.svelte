@@ -72,43 +72,63 @@
         method="POST"
         onsubmit={handleSubmit}
     >
-        <label for="image">Image <em>(required)</em></label>
-        <!-- On all major mobile browsers capture="environment" will prompt the user to take a photo. -->
-        <!-- See: https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Attributes/capture -->
-        <FileLimitedSize
-            type="file"
-            id="image"
-            name="image"
-            accept="image/png, image/jpeg"
-            capture="environment"
-            required
-            maxsize="10"
-        />
-        <label for="status">Pangolin status</label>
-        <select id="status" name="deathType">
-            <optgroup label="Alive">
-                <option value="">Alive</option>
-            </optgroup>
-            <optgroup label="Dead">
-                <option value="fence">Caught on fence</option>
-                <option value="fenceElectrocuted">Electrocuted on fence</option>
-                <option value="road">Killed on road</option>
-            </optgroup>
-        </select>
-        <label for="notes"
-            >Additional details, such as the type of fence or road:</label
-        >
-        <textarea id="notes" name="notes" maxlength="10000"></textarea>
-        <GeolocationInput required />
+        <fieldset>
+            <legend>Pangolin details</legend>
+            <label for="image">Image <em>(required)</em></label>
+            <!-- On all major mobile browsers capture="environment" will prompt the user to take a photo. -->
+            <!-- See: https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Attributes/capture -->
+            <FileLimitedSize
+                type="file"
+                id="image"
+                name="image"
+                accept="image/png, image/jpeg"
+                capture="environment"
+                required
+                maxsize="10"
+            />
+            <label for="status">Pangolin status</label>
+            <select id="status" name="deathType">
+                <optgroup label="Alive">
+                    <option value="">Alive</option>
+                </optgroup>
+                <optgroup label="Dead">
+                    <option value="fence">Caught on fence</option>
+                    <option value="fenceElectrocuted">Electrocuted on fence</option>
+                    <option value="road">Killed on road</option>
+                </optgroup>
+            </select>
+            <label for="notes">Additional details, such as the type of fence or road:</label>
+            <textarea id="notes" name="notes" maxlength="10000"></textarea>
+        </fieldset>
+        <fieldset>
+            <legend>Pangolin location</legend>
+            <GeolocationInput required />
+        </fieldset>
         <input type="submit" />
     </form>
 </main>
 
 <style>
-    form {
+    fieldset {
         display: flex;
         flex-direction: column;
-        gap: 0.5rem;
+        padding: 0.75rem 1rem 1rem;
+        border: 0.1rem solid #BCC0CC;
+        border-radius: 0.5rem;
+        margin: 1rem 0;
+    }
+
+    legend {
+        box-sizing: border-box;
+        color: inherit;
+        display: table;
+        max-width: 100%;
+        padding: 0;
+        white-space: normal;
+    }
+
+    label:not(:first-of-type) {
+        margin-top: 1rem;
     }
 
     select,
@@ -127,5 +147,9 @@
         min-height: 9rem;
         resize: vertical;
         padding: 0.5rem;
+    }
+
+    input[type="submit"] {
+        height: 1.75rem;
     }
 </style>

@@ -32,7 +32,7 @@
 </script>
 
 {#if !position}
-    <BlueButton onclick={tryEnablingGeolocation} {@attach inputLifecycle} {...props}>Enable location</BlueButton>
+    <BlueButton type="button" onclick={tryEnablingGeolocation} {@attach inputLifecycle} {...props}>Enable location</BlueButton>
 {:else}
     <input
         type="hidden"
@@ -50,11 +50,25 @@
         value={position.coords.accuracy}
     />
     <input type="hidden" name="time" value={position.timestamp} />
-    <p>Latitude: {position.coords.latitude}</p>
-    <p>Longitude: {position.coords.longitude}</p>
-    <p>Accuracy: {position.coords.accuracy}</p>
-    <p>Time: {position.timestamp}</p>
+    <p class="attached">Your current location is attached.</p>
 {/if}
 {#if positionError}
     <p>{positionError.message}</p>
 {/if}
+
+<style>
+    .attached:before {
+        content: "✓";
+        padding-right: 0.3rem;
+        color: #40A02B;
+    }
+
+    .attached {
+        margin: 0;
+        overflow: auto;
+        overflow-wrap: anywhere;
+        background-color: var(--base);
+        padding: 1rem;
+        border-radius: 0.5rem;
+    }
+</style>
