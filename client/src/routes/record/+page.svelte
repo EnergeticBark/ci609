@@ -66,7 +66,7 @@
 </script>
 
 <main>
-    <h2>Add new sighting</h2>
+    <h2>Record a new sighting</h2>
     <form
         action="https://bsh23.brighton.domains/ci609/api/sightings"
         method="POST"
@@ -120,7 +120,7 @@
     }
 
     select {
-        height: 2.4rem;
+        height: 2.25rem;
     }
 
     #notes {
