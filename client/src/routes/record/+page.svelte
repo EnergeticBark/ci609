@@ -85,7 +85,6 @@
             <!-- On all major mobile browsers capture="environment" will prompt the user to take a photo. -->
             <!-- See: https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Attributes/capture -->
             <FileLimitedSize
-                type="file"
                 id="image"
                 name="image"
                 accept="image/png, image/jpeg"

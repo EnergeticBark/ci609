@@ -19,4 +19,10 @@
     };
 </script>
 
-<input {...props} onchange={checkFileSize} />
+<input type="file" {...props} onchange={checkFileSize} />
+
+<style>
+    input {
+        width: 100%;
+    }
+</style>
