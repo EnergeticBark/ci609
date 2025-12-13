@@ -4,8 +4,16 @@
     import FileLimitedSize from "$lib/components/FileLimitedSize.svelte";
     import GeolocationInput from "$lib/components/GeolocationInput.svelte";
 
+    let submitting = $state(false);
+
     async function handleSubmit(event) {
         event.preventDefault();
+        // Ignore the click if we're already submitting.
+        if (submitting) {
+            return;
+        }
+        submitting = true;
+
         const data = new FormData(event.currentTarget);
 
         let offlineSighting;
@@ -60,6 +68,7 @@
             console.error(error.message);
             await goto("/ci609/offline");
         }
+        submitting = false;
     }
 </script>
 
@@ -107,6 +116,9 @@
             <GeolocationInput required />
         </fieldset>
         <input type="submit" />
+        {#if submitting}
+            <label>Submitting...<progress></progress></label>
+        {/if}
     </form>
 </main>
 
