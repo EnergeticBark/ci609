@@ -1,6 +1,6 @@
 <script>
     import StatusMessage from "$lib/components/StatusMessage.svelte";
-    import LeafletMap from "$lib/components/LeafletMap.svelte";
+    import LeafletMap from "./LeafletMap.svelte";
 
     let { image, deathType, time, latitude, longitude, accuracy, notes } =
         $props();

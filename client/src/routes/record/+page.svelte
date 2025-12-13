@@ -1,8 +1,8 @@
 <script>
     import { goto } from "$app/navigation";
     import { dbPromise } from "$lib/db.js";
-    import FileLimitedSize from "$lib/components/FileLimitedSize.svelte";
-    import GeolocationInput from "$lib/components/GeolocationInput.svelte";
+    import FileLimitedSize from "./FileLimitedSize.svelte";
+    import GeolocationInput from "./GeolocationInput.svelte";
 
     let submitting = $state(false);
 

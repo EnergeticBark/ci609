@@ -3,7 +3,7 @@
 
     import "modern-normalize";
     import "$lib/assets/shared.css";
-    import Navigation from "$lib/components/Navigation.svelte";
+    import Navigation from "./Navigation.svelte";
 
     let { children } = $props();
 </script>
