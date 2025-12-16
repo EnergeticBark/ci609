@@ -22,9 +22,7 @@
         display: block;
         font-size: 1.1rem;
     }
-    li:first-child a {
-        border-top: 1px solid var(--surface-1);
-    }
+
     li a {
         display: block;
         padding: 0.7rem 1.25rem 0.7rem 1.25rem;
@@ -35,5 +33,8 @@
     li a:hover {
         background-color: var(--overlay-0);
         color: #fff;
+    }
+    li:first-child a {
+        border-top: 1px solid var(--surface-1);
     }
 </style>

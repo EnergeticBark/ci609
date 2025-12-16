@@ -1,4 +1,3 @@
-/* TODO: many of these styles go unused, or could otherwise be attached to components */
 /* Set up alternative box model */
 html {
     box-sizing: border-box;
@@ -52,20 +51,6 @@ body {
     background-color: var(--mantle);
 }
 
-header {
-    padding: 0 1rem;
-}
-
-main {
-    padding: 0 1rem 1.5rem;
-}
-
-footer {
-    text-align: center;
-    padding: 1.5rem 0;
-    background-color: var(--base);
-}
-
 /* Text */
 h2 {
     color: var(--sub-text-0);
@@ -73,46 +58,4 @@ h2 {
 
 label {
     color: var(--sub-text-1);
-}
-
-#loading-indicator {
-    margin: 1rem 0;
-}
-
-/* Gallery grid layout */
-#gallery {
-    display: grid;
-    grid-gap: 0.5rem;
-    grid-template-columns: 1fr 1fr;
-}
-
-/* Media breakpoints:
-   70rem: Desktop
-   50rem: Tablet
-   40rem: Mobile phone
- */
-@media (width >= 40rem) {
-    #gallery {
-        grid-gap: 1rem;
-    }
-
-    header {
-        padding: 0 3rem;
-    }
-
-    main {
-        padding: 0 3rem 1.5rem;
-    }
-}
-
-@media (width >= 50rem) {
-    #gallery {
-        grid-template-columns: 1fr 1fr 1fr;
-    }
-}
-
-@media (width >= 70rem) {
-    #gallery {
-        grid-template-columns: 1fr 1fr 1fr 1fr;
-    }
 }

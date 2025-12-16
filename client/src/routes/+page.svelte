@@ -1,5 +1,7 @@
 <script>
     import SightingPreview from "$lib/components/SightingPreview.svelte";
+    import Gallery from "$lib/components/Gallery.svelte";
+    import LoadingIndicator from "$lib/components/LoadingIndicator.svelte";
 
     let { data } = $props();
 </script>
@@ -7,20 +9,29 @@
 <main>
     <h2>Pangolin sightings</h2>
     {#await data.sightings}
-        <label
-            >Loading pangolin sightings...
-            <progress></progress>
-        </label>
+        <LoadingIndicator>Loading pangolin sightings...</LoadingIndicator>
     {:then sightings}
-        <div id="gallery">
+        <Gallery>
             {#each sightings as sighting}
                 <SightingPreview
                     href="/ci609/sighting/{sighting.id}"
                     {...sighting}
                 />
             {/each}
-        </div>
+        </Gallery>
     {:catch error}
         <p>{error.message}</p>
     {/await}
 </main>
+
+<style>
+    main {
+        padding: 0 1rem 1.5rem;
+    }
+
+    @media (width >= 40rem) {
+        main {
+            padding: 0 3rem 1.5rem;
+        }
+    }
+</style>

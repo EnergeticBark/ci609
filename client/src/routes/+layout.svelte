@@ -2,7 +2,7 @@
     import favicon from "$lib/assets/favicon.svg";
 
     import "modern-normalize";
-    import "$lib/assets/shared.css";
+    import "$lib/assets/global.css";
     import Navigation from "./Navigation.svelte";
 
     let { children } = $props();
@@ -21,3 +21,21 @@
 {@render children()}
 
 <footer>© Seth Humphries</footer>
+
+<style>
+    header {
+        padding: 0 1rem;
+    }
+
+    footer {
+        text-align: center;
+        padding: 1.5rem 0;
+        background-color: var(--base);
+    }
+
+    @media (width >= 40rem) {
+        header {
+            padding: 0 3rem;
+        }
+    }
+</style>

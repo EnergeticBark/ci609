@@ -3,6 +3,7 @@
     import { dbPromise } from "$lib/db.js";
     import SightingPreview from "$lib/components/SightingPreview.svelte";
     import BlueButton from "$lib/components/BlueButton.svelte";
+    import LoadingIndicator from "$lib/components/LoadingIndicator.svelte";
 
     let uploading = $state(false);
 
@@ -87,14 +88,13 @@
 <main>
     <h2>Your offline pangolin sightings</h2>
     {#await data.sightings}
-        <label>Loading offline pangolin sightings...<progress></progress></label
-        >
+        <LoadingIndicator>Loading offline pangolin sightings...</LoadingIndicator>
     {:then sightings}
         <BlueButton type="button" onclick={handleUploadAll}
             >Upload All</BlueButton
         >
         {#if uploading}
-            <label>Uploading...<progress></progress></label>
+            <LoadingIndicator>Uploading...</LoadingIndicator>
         {/if}
         <div id="gallery">
             {#each sightings as sighting}
@@ -105,3 +105,15 @@
         <p>{error.message}</p>
     {/await}
 </main>
+
+<style>
+    main {
+        padding: 0 1rem 1.5rem;
+    }
+
+    @media (width >= 40rem) {
+        main {
+            padding: 0 3rem 1.5rem;
+        }
+    }
+</style>

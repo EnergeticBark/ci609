@@ -4,6 +4,7 @@
     import FileLimitedSize from "./FileLimitedSize.svelte";
     import GeolocationInput from "./GeolocationInput.svelte";
     import StatusOption from "./StatusOption.svelte";
+    import LoadingIndicator from "$lib/components/LoadingIndicator.svelte";
 
     let submitting = $state(false);
 
@@ -114,13 +115,14 @@
         </fieldset>
         <input type="submit" />
         {#if submitting}
-            <label>Submitting...<progress></progress></label>
+            <LoadingIndicator>Submitting...</LoadingIndicator>
         {/if}
     </form>
 </main>
 
 <style>
     main {
+        padding: 0 1rem 1.5rem;
         width: 100%;
         max-width: 48rem;
         margin: 0 auto;
@@ -168,5 +170,11 @@
 
     input[type="submit"] {
         height: 1.75rem;
+    }
+
+    @media (width >= 40rem) {
+        main {
+            padding: 0 3rem 1.5rem;
+        }
     }
 </style>
