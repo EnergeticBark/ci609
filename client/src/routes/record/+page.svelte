@@ -3,6 +3,7 @@
     import { dbPromise } from "$lib/db.js";
     import FileLimitedSize from "./FileLimitedSize.svelte";
     import GeolocationInput from "./GeolocationInput.svelte";
+    import StatusOption from "./StatusOption.svelte";
 
     let submitting = $state(false);
 
@@ -94,14 +95,12 @@
             <label for="status">Pangolin status</label>
             <select id="status" name="deathType">
                 <optgroup label="Alive">
-                    <option value="">Alive</option>
+                    <StatusOption value="" />
                 </optgroup>
                 <optgroup label="Dead">
-                    <option value="fence">Caught on fence</option>
-                    <option value="fenceElectrocuted"
-                        >Electrocuted on fence</option
-                    >
-                    <option value="road">Killed on road</option>
+                    <StatusOption value="fence" />
+                    <StatusOption value="fenceElectrocuted" />
+                    <StatusOption value="road" />
                 </optgroup>
             </select>
             <label for="notes"
