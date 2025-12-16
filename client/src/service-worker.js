@@ -28,23 +28,23 @@ const ASSETS = [
 
 self.addEventListener("install", (event) => {
     // Create a new cache and add all files to it
-    async function addFilesToCache() {
+    const addFilesToCache = async () => {
         const cache = await caches.open(CACHE);
         return cache.addAll(ASSETS);
-    }
+    };
 
     event.waitUntil(addFilesToCache());
 });
 
 self.addEventListener("activate", (event) => {
     // Remove previous cached data from disk
-    async function deleteOldCaches() {
+    const deleteOldCaches = async () => {
         for (const key of await caches.keys()) {
             if (key !== CACHE) await caches.delete(key);
         }
         // Start using this service worker now instead of on the next reload.
         return clients.claim();
-    }
+    };
 
     event.waitUntil(deleteOldCaches());
 });
@@ -53,7 +53,7 @@ self.addEventListener("fetch", (event) => {
     // Ignore non-GET requests
     if (event.request.method !== "GET") return;
 
-    async function respond() {
+    const respond = async () => {
         const url = new URL(event.request.url);
         const cache = await caches.open(CACHE);
 
@@ -79,7 +79,7 @@ self.addEventListener("fetch", (event) => {
 
         // Fall back to the network
         return fetch(event.request);
-    }
+    };
 
     event.respondWith(respond());
 });

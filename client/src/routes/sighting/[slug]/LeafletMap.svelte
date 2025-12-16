@@ -4,7 +4,7 @@
 
     let { latitude, longitude, accuracy } = $props();
 
-    function mapLifecycle(latitude, longitude, accuracy) {
+    const mapLifecycle = (latitude, longitude, accuracy) => {
         return (node) => {
             let map = L.map(node).setView([latitude, longitude], 16);
 

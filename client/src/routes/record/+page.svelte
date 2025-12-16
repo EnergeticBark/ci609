@@ -8,7 +8,7 @@
 
     let submitting = $state(false);
 
-    async function handleSubmit(event) {
+    const handleSubmit = async (event) => {
         event.preventDefault();
         // Ignore the click if we're already submitting.
         if (submitting) {

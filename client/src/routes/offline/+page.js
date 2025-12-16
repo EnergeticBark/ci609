@@ -1,7 +1,7 @@
 import { dbPromise } from "$lib/db.js";
 
 /** @type {import('./$types').PageLoad} */
-export async function load() {
+export const load = async () => {
     const db = await dbPromise;
     const sightings = new Promise((resolve, reject) => {
         const sightings = [];
@@ -29,4 +29,4 @@ export async function load() {
     });
 
     return { sightings };
-}
+};

@@ -9,7 +9,7 @@
     let uploading = $state(false);
     let uploadError = $state();
 
-    async function getIndexedDBSightings() {
+    const getIndexedDBSightings = async () => {
         const db = await dbPromise;
         return new Promise((resolve) => {
             let sightings;
@@ -30,7 +30,7 @@
     }
 
     // Convert the sighting object from IndexedDB back into a FormData.
-    function sightingToFormData(sighting) {
+    const sightingToFormData = (sighting) => {
         const formData = new FormData();
         for (const [inputName, value] of Object.entries(sighting)) {
             formData.append(inputName, value);
@@ -39,7 +39,7 @@
     }
 
     // Upload the sighting to the API.
-    async function deleteLocal(localID) {
+    const deleteLocal = async (localID) => {
         const db = await dbPromise;
         console.info(`Removing offline sighting with key: ${localID}. :)`);
         await new Promise((resolve) => {
@@ -49,7 +49,8 @@
                 .delete(Number(localID)).onsuccess = resolve;
         });
     }
-    async function handleUploadAll() {
+
+    const handleUploadAll = async () => {
         // Ignore the click if we're already uploading.
         if (uploading) {
             return;

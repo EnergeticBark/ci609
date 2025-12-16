@@ -1,5 +1,5 @@
 /** @type {import('./$types').PageLoad} */
-export async function load({ fetch }) {
+export const load = async ({ fetch }) => {
     // Chain the fetch and JSON promises together so we await on both in +page.svelte.
     const sightings = (async () => {
         try {
@@ -24,4 +24,4 @@ export async function load({ fetch }) {
     })();
 
     return { sightings };
-}
+};
