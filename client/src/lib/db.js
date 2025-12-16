@@ -1,7 +1,7 @@
 export const dbPromise = new Promise((resolve, reject) => {
     const request = window.indexedDB.open("ZapApp", 5);
     request.onerror = () => {
-        console.error("Why didn't you allow my web app to use IndexedDB?!");
+        console.error("User didn't allow IndexedDB!!!");
     };
 
     request.onupgradeneeded = (event) => {
