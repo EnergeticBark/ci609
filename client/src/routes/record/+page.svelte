@@ -121,6 +121,12 @@
 </main>
 
 <style>
+    main {
+        width: 100%;
+        max-width: 48rem;
+        margin: 0 auto;
+    }
+
     fieldset {
         display: flex;
         flex-direction: column;
