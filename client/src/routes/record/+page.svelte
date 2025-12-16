@@ -88,7 +88,6 @@
                 id="image"
                 name="image"
                 accept="image/png, image/jpeg"
-                capture="environment"
                 required
                 maxsize="10"
             />
