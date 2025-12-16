@@ -1,5 +1,5 @@
 <script>
-    import {goto, invalidateAll} from "$app/navigation";
+    import { goto, invalidateAll } from "$app/navigation";
     import { dbPromise } from "$lib/db.js";
     import SightingPreview from "$lib/components/SightingPreview.svelte";
     import BlueButton from "$lib/components/BlueButton.svelte";
@@ -27,7 +27,7 @@
                 }
             };
         });
-    }
+    };
 
     // Convert the sighting object from IndexedDB back into a FormData.
     const sightingToFormData = (sighting) => {
@@ -36,7 +36,7 @@
             formData.append(inputName, value);
         }
         return formData;
-    }
+    };
 
     // Upload the sighting to the API.
     const deleteLocal = async (localID) => {
@@ -48,7 +48,7 @@
                 .objectStore("sightings")
                 .delete(Number(localID)).onsuccess = resolve;
         });
-    }
+    };
 
     const handleUploadAll = async () => {
         // Ignore the click if we're already uploading.
@@ -64,10 +64,13 @@
             const formData = sightingToFormData(sighting);
             // Upload the sighting to the API and only delete it from IndexedDB if the upload was successful.
             try {
-                const response = await fetch("https://bsh23.brighton.domains/ci609/api/sightings", {
-                    method: "POST",
-                    body: formData,
-                });
+                const response = await fetch(
+                    "https://bsh23.brighton.domains/ci609/api/sightings",
+                    {
+                        method: "POST",
+                        body: formData,
+                    },
+                );
 
                 if (response.ok) {
                     await deleteLocal(localID);
@@ -77,7 +80,7 @@
                 if (error instanceof TypeError) {
                     error = new Error(
                         `You appear to have gone offline.\n
-                        Rest assured, any locally deleted sightings were uploaded successfully.`
+                        Rest assured, any locally deleted sightings were uploaded successfully.`,
                     );
                 }
 
@@ -92,7 +95,7 @@
 
         // The sightings uploaded successfully, so redirect to the online sightings page to show them to the user.
         await goto("/ci609/");
-    }
+    };
 
     let { data } = $props();
 </script>
@@ -101,9 +104,7 @@
 {#await data.sightings}
     <LoadingIndicator>Loading offline pangolin sightings...</LoadingIndicator>
 {:then sightings}
-    <BlueButton type="button" onclick={handleUploadAll}
-        >Upload All</BlueButton
-    >
+    <BlueButton type="button" onclick={handleUploadAll}>Upload All</BlueButton>
     {#if uploading}
         <LoadingIndicator>Uploading...</LoadingIndicator>
     {/if}

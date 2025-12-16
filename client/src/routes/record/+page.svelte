@@ -71,7 +71,7 @@
             await goto("/ci609/offline");
         }
         submitting = false;
-    }
+    };
 </script>
 
 <form
@@ -103,9 +103,7 @@
                 <StatusOption value="road" />
             </optgroup>
         </select>
-        <label for="notes"
-            >Additional details, such as fence/road type:</label
-        >
+        <label for="notes">Additional details, such as fence/road type:</label>
         <textarea id="notes" name="notes" maxlength="10000"></textarea>
     </fieldset>
     <fieldset>

@@ -26,7 +26,7 @@
                 map.remove();
             };
         };
-    }
+    };
 </script>
 
 <div {@attach mapLifecycle(latitude, longitude, accuracy)}></div>
