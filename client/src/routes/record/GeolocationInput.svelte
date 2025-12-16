@@ -57,7 +57,7 @@
     .attached:before {
         content: "✓";
         padding-right: 0.3rem;
-        color: #40a02b;
+        color: var(--green);
     }
 
     .attached {

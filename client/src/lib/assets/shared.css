@@ -14,6 +14,7 @@ html {
    Licensed under MIT.
  */
 :root {
+    --green: #40a02b;
     --blue: #1e66f5;
     --blue-hover: #1e66f5dd;
     --crust: #dce0e8;

@@ -130,7 +130,7 @@
         display: flex;
         flex-direction: column;
         padding: 0.75rem 1rem 1rem;
-        border: 0.1rem solid #bcc0cc;
+        border: 0.1rem solid var(--surface-1);
         border-radius: 0.5rem;
         margin: 1rem 0;
     }
