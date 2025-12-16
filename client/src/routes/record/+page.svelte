@@ -74,57 +74,53 @@
     }
 </script>
 
-<main>
+<form
+    action="https://bsh23.brighton.domains/ci609/api/sightings"
+    method="POST"
+    onsubmit={handleSubmit}
+>
     <h2>Record a new sighting</h2>
-    <form
-        action="https://bsh23.brighton.domains/ci609/api/sightings"
-        method="POST"
-        onsubmit={handleSubmit}
-    >
-        <fieldset>
-            <legend>Pangolin details</legend>
-            <label for="image">Image <em>(required)</em></label>
-            <!-- On all major mobile browsers capture="environment" will prompt the user to take a photo. -->
-            <!-- See: https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Attributes/capture -->
-            <FileLimitedSize
-                id="image"
-                name="image"
-                accept="image/png, image/jpeg"
-                required
-                maxsize="10"
-            />
-            <label for="status">Pangolin status</label>
-            <select id="status" name="deathType">
-                <optgroup label="Alive">
-                    <StatusOption value="" />
-                </optgroup>
-                <optgroup label="Dead">
-                    <StatusOption value="fence" />
-                    <StatusOption value="fenceElectrocuted" />
-                    <StatusOption value="road" />
-                </optgroup>
-            </select>
-            <label for="notes"
-                >Additional details, such as fence/road type:</label
-            >
-            <textarea id="notes" name="notes" maxlength="10000"></textarea>
-        </fieldset>
-        <fieldset>
-            <legend>Pangolin location</legend>
-            <GeolocationInput required />
-        </fieldset>
-        <input type="submit" />
-        {#if submitting}
-            <LoadingIndicator>Submitting...</LoadingIndicator>
-        {/if}
-    </form>
-</main>
+    <fieldset>
+        <legend>Pangolin details</legend>
+        <label for="image">Image <em>(required)</em></label>
+        <!-- On all major mobile browsers capture="environment" will prompt the user to take a photo. -->
+        <!-- See: https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Attributes/capture -->
+        <FileLimitedSize
+            id="image"
+            name="image"
+            accept="image/png, image/jpeg"
+            required
+            maxsize="10"
+        />
+        <label for="status">Pangolin status</label>
+        <select id="status" name="deathType">
+            <optgroup label="Alive">
+                <StatusOption value="" />
+            </optgroup>
+            <optgroup label="Dead">
+                <StatusOption value="fence" />
+                <StatusOption value="fenceElectrocuted" />
+                <StatusOption value="road" />
+            </optgroup>
+        </select>
+        <label for="notes"
+            >Additional details, such as fence/road type:</label
+        >
+        <textarea id="notes" name="notes" maxlength="10000"></textarea>
+    </fieldset>
+    <fieldset>
+        <legend>Pangolin location</legend>
+        <GeolocationInput required />
+    </fieldset>
+    <input type="submit" />
+    {#if submitting}
+        <LoadingIndicator>Submitting...</LoadingIndicator>
+    {/if}
+</form>
 
 <style>
-    main {
-        padding: 0 1rem 1.5rem;
-        width: 100%;
-        max-width: 48rem;
+    form {
+        max-width: 42rem;
         margin: 0 auto;
     }
 
@@ -170,11 +166,5 @@
 
     input[type="submit"] {
         height: 1.75rem;
-    }
-
-    @media (width >= 40rem) {
-        main {
-            padding: 0 3rem 1.5rem;
-        }
     }
 </style>

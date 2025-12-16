@@ -6,32 +6,18 @@
     let { data } = $props();
 </script>
 
-<main>
-    <h2>Pangolin sightings</h2>
-    {#await data.sightings}
-        <LoadingIndicator>Loading pangolin sightings...</LoadingIndicator>
-    {:then sightings}
-        <Gallery>
-            {#each sightings as sighting}
-                <SightingPreview
-                    href="/ci609/sighting/{sighting.id}"
-                    {...sighting}
-                />
-            {/each}
-        </Gallery>
-    {:catch error}
-        <p>{error.message}</p>
-    {/await}
-</main>
-
-<style>
-    main {
-        padding: 0 1rem 1.5rem;
-    }
-
-    @media (width >= 40rem) {
-        main {
-            padding: 0 3rem 1.5rem;
-        }
-    }
-</style>
+<h2>Pangolin sightings</h2>
+{#await data.sightings}
+    <LoadingIndicator>Loading pangolin sightings...</LoadingIndicator>
+{:then sightings}
+    <Gallery>
+        {#each sightings as sighting}
+            <SightingPreview
+                href="/ci609/sighting/{sighting.id}"
+                {...sighting}
+            />
+        {/each}
+    </Gallery>
+{:catch error}
+    <p>{error.message}</p>
+{/await}

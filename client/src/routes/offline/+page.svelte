@@ -85,35 +85,21 @@
     let { data } = $props();
 </script>
 
-<main>
-    <h2>Your offline pangolin sightings</h2>
-    {#await data.sightings}
-        <LoadingIndicator>Loading offline pangolin sightings...</LoadingIndicator>
-    {:then sightings}
-        <BlueButton type="button" onclick={handleUploadAll}
-            >Upload All</BlueButton
-        >
-        {#if uploading}
-            <LoadingIndicator>Uploading...</LoadingIndicator>
-        {/if}
-        <div id="gallery">
-            {#each sightings as sighting}
-                <SightingPreview href="#" {...sighting} />
-            {/each}
-        </div>
-    {:catch error}
-        <p>{error.message}</p>
-    {/await}
-</main>
-
-<style>
-    main {
-        padding: 0 1rem 1.5rem;
-    }
-
-    @media (width >= 40rem) {
-        main {
-            padding: 0 3rem 1.5rem;
-        }
-    }
-</style>
+<h2>Your offline pangolin sightings</h2>
+{#await data.sightings}
+    <LoadingIndicator>Loading offline pangolin sightings...</LoadingIndicator>
+{:then sightings}
+    <BlueButton type="button" onclick={handleUploadAll}
+        >Upload All</BlueButton
+    >
+    {#if uploading}
+        <LoadingIndicator>Uploading...</LoadingIndicator>
+    {/if}
+    <div id="gallery">
+        {#each sightings as sighting}
+            <SightingPreview href="#" {...sighting} />
+        {/each}
+    </div>
+{:catch error}
+    <p>{error.message}</p>
+{/await}

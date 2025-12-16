@@ -18,13 +18,17 @@
 </header>
 <Navigation />
 
-{@render children()}
+<main>{@render children()}</main>
 
 <footer>© Seth Humphries</footer>
 
 <style>
     header {
         padding: 0 1rem;
+    }
+
+    main {
+        padding: 0 1rem 1.5rem;
     }
 
     footer {
@@ -36,6 +40,10 @@
     @media (width >= 40rem) {
         header {
             padding: 0 3rem;
+        }
+
+        main {
+            padding: 0 3rem 1.5rem;
         }
     }
 </style>
