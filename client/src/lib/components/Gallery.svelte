@@ -9,6 +9,7 @@
 <style>
     /* Gallery grid layout */
     div {
+        margin-top: 1rem;
         display: grid;
         grid-gap: 0.5rem;
         grid-template-columns: 1fr 1fr;

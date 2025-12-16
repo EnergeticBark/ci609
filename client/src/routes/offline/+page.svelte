@@ -1,11 +1,33 @@
 <script>
-    import { goto } from "$app/navigation";
+    import {goto, invalidateAll} from "$app/navigation";
     import { dbPromise } from "$lib/db.js";
     import SightingPreview from "$lib/components/SightingPreview.svelte";
     import BlueButton from "$lib/components/BlueButton.svelte";
     import LoadingIndicator from "$lib/components/LoadingIndicator.svelte";
+    import Gallery from "$lib/components/Gallery.svelte";
 
     let uploading = $state(false);
+    let uploadError = $state();
+
+    async function getIndexedDBSightings() {
+        const db = await dbPromise;
+        return new Promise((resolve) => {
+            let sightings;
+            db
+                .transaction("sightings", "readonly")
+                .objectStore("sightings")
+                .openCursor().onsuccess = (event) => {
+                const cursor = event.target.result;
+                // Append each sighting to the sightings object.
+                if (cursor) {
+                    sightings = { ...sightings, [cursor.key]: cursor.value };
+                    cursor.continue();
+                } else {
+                    resolve(sightings);
+                }
+            };
+        });
+    }
 
     // Convert the sighting object from IndexedDB back into a FormData.
     function sightingToFormData(sighting) {
@@ -14,14 +36,6 @@
             formData.append(inputName, value);
         }
         return formData;
-    }
-
-    // Upload the sighting to the API.
-    async function upload(formData) {
-        return fetch("https://bsh23.brighton.domains/ci609/api/sightings", {
-            method: "POST",
-            body: formData,
-        });
     }
 
     // Upload the sighting to the API.
@@ -35,20 +49,6 @@
                 .delete(Number(localID)).onsuccess = resolve;
         });
     }
-
-    // Upload the sighting to the API.
-    async function uploadAndDelete(formData, localID) {
-        try {
-            const response = await upload(formData);
-
-            if (response.ok) {
-                await deleteLocal(localID);
-            }
-        } catch (error) {
-            console.error(error.message);
-        }
-    }
-
     async function handleUploadAll() {
         // Ignore the click if we're already uploading.
         if (uploading) {
@@ -56,29 +56,40 @@
         }
 
         uploading = true;
+        uploadError = undefined;
 
-        const db = await dbPromise;
-        const sightings = await new Promise((resolve) => {
-            let sightings;
-            db
-                .transaction("sightings", "readonly")
-                .objectStore("sightings")
-                .openCursor().onsuccess = (event) => {
-                const cursor = event.target.result;
-                if (cursor) {
-                    sightings = { ...sightings, [cursor.key]: cursor.value };
-                    cursor.continue();
-                } else {
-                    resolve(sightings);
-                }
-            };
-        });
-
+        const sightings = await getIndexedDBSightings();
         for (const [localID, sighting] of Object.entries(sightings)) {
             const formData = sightingToFormData(sighting);
-            await uploadAndDelete(formData, localID);
+            // Upload the sighting to the API and only delete it from IndexedDB if the upload was successful.
+            try {
+                const response = await fetch("https://bsh23.brighton.domains/ci609/api/sightings", {
+                    method: "POST",
+                    body: formData,
+                });
+
+                if (response.ok) {
+                    await deleteLocal(localID);
+                }
+            } catch (error) {
+                // The fetch() method throws a type error for network errors.
+                if (error instanceof TypeError) {
+                    error = new Error(
+                        `You appear to have gone offline.\n
+                        Rest assured, any locally deleted sightings were uploaded successfully.`
+                    );
+                }
+
+                uploading = false;
+                uploadError = error;
+
+                // Rerun this page's load function, which will update the gallery.
+                await invalidateAll();
+                return;
+            }
         }
 
+        // The sightings uploaded successfully, so redirect to the online sightings page to show them to the user.
         await goto("/ci609/");
     }
 
@@ -95,11 +106,14 @@
     {#if uploading}
         <LoadingIndicator>Uploading...</LoadingIndicator>
     {/if}
-    <div id="gallery">
+    {#if uploadError}
+        <p>{uploadError.message}</p>
+    {/if}
+    <Gallery>
         {#each sightings as sighting}
             <SightingPreview href="#" {...sighting} />
         {/each}
-    </div>
+    </Gallery>
 {:catch error}
     <p>{error.message}</p>
 {/await}

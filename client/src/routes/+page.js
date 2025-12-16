@@ -13,7 +13,7 @@ export async function load({ fetch }) {
             return response.json();
         } catch (error) {
             // The fetch() method throws a type error for network errors.
-            if (error instanceof TypeError && !navigator.onLine) {
+            if (error instanceof TypeError) {
                 throw new Error(
                     "You're offline, but you can save sightings to upload later.",
                 );
