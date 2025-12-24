@@ -40,5 +40,6 @@
         background-color: var(--base);
         padding: 1rem;
         border-radius: 0.5rem;
+        white-space: pre-line;
     }
 </style>

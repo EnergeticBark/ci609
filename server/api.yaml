@@ -7,7 +7,7 @@ servers:
 paths:
   /sightings:
     post:
-      summary: Add a pangolin sighting
+      summary: Add a new pangolin sighting
       requestBody:
         required: true
         content:

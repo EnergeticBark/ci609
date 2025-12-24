@@ -55,6 +55,7 @@ class Sightings extends Endpoint {
         }
         $imageUrl = 'https://bsh23.brighton.domains/ci609/api/' . $uploadDestination;
 
+        // Returns null if empty (alive), false if invalid.
         function deathTypeFilter(string $value): string|null|false {
             if ($value === "") {
                 return null;
@@ -75,6 +76,7 @@ class Sightings extends Endpoint {
         $longitude = filter_input(INPUT_POST, 'longitude', FILTER_VALIDATE_FLOAT);
         $accuracy = filter_input(INPUT_POST, 'accuracy', FILTER_VALIDATE_FLOAT);
 
+        // Returns null if empty (no notes), false if invalid.
         function notesFilter(string $value): string|null|false {
             if ($value === "") {
                 return null;
