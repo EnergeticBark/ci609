@@ -20,7 +20,7 @@
 </article>
 
 <style>
-    article {
+    a {
         background-color: var(--base);
         border: 1px solid var(--surface-1);
         border-radius: 0.5rem;
@@ -28,25 +28,25 @@
         text-wrap: balance;
         overflow: auto;
         overflow-wrap: break-word;
-    }
-
-    article:hover {
-        background-color: var(--mantle);
-    }
-
-    a {
-        display: contents;
         text-decoration: none;
         color: inherit;
     }
 
-    article div {
+    a:hover {
+        background-color: var(--mantle);
+    }
+
+    article {
+        display: contents;
+    }
+
+    a div {
         background-color: var(--mantle);
         align-content: center;
         border-bottom: 1px solid var(--surface-1);
     }
 
-    article:hover div {
+    a:hover div {
         background-color: var(--crust);
     }
 
@@ -63,7 +63,7 @@
         align-content: center;
     }
 
-    article:hover h3 {
+    a:hover h3 {
         text-decoration: underline;
     }
 
@@ -76,12 +76,12 @@
         background-color: var(--mantle);
     }
 
-    article:hover p {
+    a:hover p {
         background-color: var(--crust);
     }
 
     /* Grid layout */
-    article {
+    a {
         display: grid;
         /* Show the time on the bottom right corner of the card, taking up only as much width as it's content. */
         grid-template-columns: 1fr auto;
@@ -97,13 +97,13 @@
             ".     time";
     }
 
-    article div {
+    a div {
         grid-area: image;
     }
-    article h3 {
+    a h3 {
         grid-area: title;
     }
-    article p {
+    a p {
         grid-area: time;
     }
 </style>
