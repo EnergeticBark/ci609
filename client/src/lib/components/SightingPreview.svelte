@@ -12,7 +12,7 @@
 <article>
     <a {href}>
         <div>
-            <img src={image} alt="" loading="lazy" />
+            <img src={image} alt="a pangolin" loading="lazy" />
         </div>
         <h3><StatusMessage {deathType} /></h3>
         <p>Seen: <time {datetime}>{timestamp}</time></p>

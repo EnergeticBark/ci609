@@ -6,7 +6,7 @@ export const load = async ({ fetch, params }) => {
             const response = await fetch(
                 `https://bsh23.brighton.domains/ci609/api/sightings/${params.slug}`,
             );
-            if (response.status === 404) {
+            if (response.status === 404 || response.status === 400) {
                 throw new Error("No sighting found for the provided ID.");
             }
 

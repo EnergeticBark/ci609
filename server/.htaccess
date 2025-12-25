@@ -2,8 +2,10 @@
 # Maybe remove this before production?
 Header set Access-Control-Allow-Origin "*"
 
-RewriteEngine On
-# Match /api/sightings/[any characters]
-RewriteRule \Asightings/(.*)\z SightingByID.php?id=$1
-# Match /api/sightings
-RewriteRule \Asightings\z Sightings.php
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    # Match /api/sightings/[any characters]
+    RewriteRule \Asightings/(.*)\z SightingByID.php?id=$1
+    # Match /api/sightings
+    RewriteRule \Asightings\z Sightings.php
+</IfModule>

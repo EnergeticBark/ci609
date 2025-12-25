@@ -69,7 +69,10 @@ self.addEventListener("fetch", (event) => {
         // Respond to all navigate requests with our app's root
         // This behavior is similar to a NavigationRoute if I had used Workbox.
         // See: https://developer.chrome.com/docs/workbox/modules/workbox-routing#how_to_register_a_navigation_route
-        if (event.request.mode === "navigate") {
+        if (
+            event.request.mode === "navigate" &&
+            url.pathname.startsWith(`${base}/api`) === false
+        ) {
             const response = await cache.match(`${base}/`);
 
             if (response) {

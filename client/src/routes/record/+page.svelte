@@ -24,7 +24,6 @@
             offlineSighting = { ...offlineSighting, [key]: value };
         }
 
-        // TODO: experiment with higher durability
         const db = await dbPromise;
         const localIDPromise = new Promise((resolve) => {
             const idbRequest = db
@@ -66,7 +65,6 @@
                 await goto(`/ci609/sighting/${id}`);
             }
         } catch (error) {
-            // TODO: handle non-offline errors separately.
             console.error(error.message);
             await goto("/ci609/offline");
         }

@@ -11,7 +11,7 @@
     let timestamp = $derived(dateObject.toLocaleString());
 </script>
 
-<picture><img src={image} alt="" /></picture>
+<picture><img src={image} alt="a pangolin" /></picture>
 <h3>Status</h3>
 <p><StatusMessage {deathType} /></p>
 <h3>Time of sighting</h3>
